@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this is only for responsive design to zoom 100%-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="og:title" property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="">
+
+    <title>Dashboard</title>
+
+    <link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+	
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist/chartist.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/toastr/toastr.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/toastr.css}" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet">
+	<link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet">
+	<link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lt IE 10]>
+	    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+	    <script src="../../global/vendor/respond/respond.min.js"></script>
+	    <![endif]-->
+	<!-- Scripts -->
+	
+	<script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+	<script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>  
+    <script>
+        Breakpoints();
+    </script>
+    <style>
+        .css-menubar .page, .css-menubar .site-footer {
+            margin-left: 0px !important;
+        }
+
+        .modal-info .modal-body {
+            padding: 20px !important;
+        }
+
+        div[role='log'] {
+            display: none;
+        }
+
+        #popupMain .modal-header {
+            background-image: url("../Content/Images/icons/warning.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 165px;
+        }
+
+        .site-menu-item.active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .loader-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(245,244,245,0.75);
+            display: flex;
+            align-items: center;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+
+        .loader-message {
+            position: absolute;
+            top: calc(50% + 35px);
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .loader-container-inline {
+            margin-top: 1.0em;
+            display: none;
+        }
+
+            .loader-container-inline .loader {
+                width: .75em;
+                height: .75em;
+            }
+            #number_notif{
+                display: none;
+            }
+        .unselectable {
+            pointer-events: none;
+            opacity: 0.5; /* Optional: to visually indicate that the element is disabled */
+        }
+    </style>
+</head>
+<body class="animsition site-navbar-small dashboard">
+    <input id="mesg_type" type="hidden" />
+    <input id="mesg_value" type="hidden" />
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided"
+                    data-toggle="menubar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse"
+                    data-toggle="collapse">
+                <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="">
+                <img class="navbar-brand-logo" style="margin-left: -8px" th:src="@{../Content/Images/Shortcut.ico}" title="UIC-Kyso" />
+                <span class="navbar-brand-text hidden-xs-down"> UIC - KÝ SỐ</span>
+            </div>
+        </div>
+        <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+                <!-- Navbar Toolbar -->
+                <ul class="nav navbar-toolbar">
+                    <li class="nav-item hidden-float hidden-md-up" id="toggleMenubar">
+                        <a class="nav-link" data-toggle="menubar" href="#" role="button">
+                            <i class="icon hamburger hamburger-arrow-left">
+                                <span class="sr-only">Toggle menubar</span>
+                                <span class="hamburger-bar"></span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Navbar Toolbar -->
+                <!-- Navbar Toolbar Right -->
+                <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                    <li class="nav-item dropdown nav-account">
+                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+                           data-animation="scale-up" role="button">
+                            <small style="font-weight:500;text-transform:uppercase;">Dương Văn Chiến</small>
+                            <span class="avatar avatar-online" style="width:30px;height:30px;overflow:hidden;">
+                                    <img id="avatar-img" th:src="@{../Content/Images/avatar.jpg}" />
+                            </span>
+                            <span></span>
+                        </a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="/Account/Info" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Thông tin tài khoản</a>                            
+                            <div class="dropdown-divider" role="presentation"></div>
+<form action="/Account/LogOut" method="post"><input name="__RequestVerificationToken" type="hidden" value="8xDQoqT8tC5zCj4nuKBu9_Vo8xNVpCG-cA4YbBt8UNU_VWyLqpD0ZZE7kpr4ZeMUGMkZau9pT385SRZuzJt4xCAlwV01" />                                <button class="dropdown-item" type="submit" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Đăng xuất</button>
+</form>                        </div>
+                    </li>                    
+                </ul>
+                <!-- End Navbar Toolbar Right -->
+            </div>            
+            <!-- End Navbar Collapse -->
+            <!-- Site Navbar Seach -->
+            <!-- End Site Navbar Seach -->
+        </div>
+    </nav>
+
+    <div class="site-menubar  ">
+     
+
+        <ul class="site-menu">
+                <li class="site-menu-item nav-account">
+                    <a href="/Home/Dashboard">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Dashboard</span>
+                    </a>
+                </li>
+            <li class="site-menu-item nav-signature has-sub">
+                <a href="javascript:void(0)">
+                    <i class="site-menu-icon md-border-color" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch Ký số</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                    <li class="site-menu-item nav-sign">
+                        <a class="animsition-link" href="/Signature/Index">
+                            <span class="site-menu-title">Ký số</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Verify/Index">
+                            <span class="site-menu-title">Kiểm tra chữ ký</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Signature/InitByPartner">
+                            <span class="site-menu-title">Trình ký</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+               <li class="site-menu-item nav-group">
+                    <a href="/Account/Group">
+                        <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                        <span class="site-menu-title">Quản lý tài khoản</span>
+                    </a>
+                </li>
+
+            <li class="site-menu-item nav-group">
+                <a href="/Transactions/WaitingTran">
+                    <i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch chờ xác nhận</span>
+                </a>
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Transactions/GroupIndex">
+                        <i class="site-menu-icon md-time" aria-hidden="true"></i>
+                        <span class="site-menu-title">Lịch sử giao dịch</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item nav-group">
+                    <a href="/SystemConfig/Index">
+                        <i class="site-menu-icon md-settings" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Cài đặt</span>
+                    </a>
+                </li>
+
+        </ul>
+    </div>            
+    <!-- Modal -->
+    <div class="modal fade modal-primary" id="popupMain" aria-hidden="true" aria-labelledby="popupMain"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-simple">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <div class="panel-heading" style="padding: 0px;">
+                            <h3 class="panel-title text-center"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-outline float-center" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+    <!-- Page -->
+    
+
+<link th:href="@{../Content/Vendor/chartist/chartist.min.css}" rel="stylesheet" />
+<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.css}" rel="stylesheet" />
+<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet" />
+<link th:href="@{../assets/vendor/morris/morris.min.css}" rel="stylesheet" />
+<link th:href="@{../Content/css/mailbox.css}" rel="stylesheet" />
+<link th:href="@{../Content/css/dashboard.css}" rel="stylesheet" />
+<style>
+    .counter-number-group {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .counter-number {
+        display: block;
+        width: 100%;
+        height: 30px;
+        overflow: hidden;
+    }
+
+    .ct-series-a .ct-bar {
+        stroke: #FF6414 !important;
+    }
+</style>
+
+<div class="page">
+    <div class="page-content container-fluid app-mailbox">
+        <div class="row" data-plugin="matchHeight" data-by-row="true">
+            <div class="col-xl-3 col-md-6">
+                <!-- Widget Linearea One-->
+                <div class="card p-30 flex-row justify-content-between">
+                    <div id="member-sum-loader" class="loader-container customer-loade">
+                        <div class="loader vertical-align-middle loader-bounce"></div>
+                        <span class="loader-message">Đang tải dữ liệu...</span>
+                    </div>
+                    <div id="member-sum" class="counter counter-md text-left">
+                        <div class="counter-number-group">
+                            <span class="counter-number">SỐ LƯỢNG TÀI KHOẢN</span>
+                        </div>
+                        <div class="counter-label text-capitalize">
+                            <a href="/account">
+                                9 thành viên
+                            </a>
+                        </div>
+                    </div>
+                    <div class="white">
+                        <i class="icon icon-circle icon-2x md-accounts bg-blue-600" aria-hidden="true"></i>
+                    </div>
+                    
+                </div>
+                <!-- End Widget Linearea One -->
+            </div>
+           <div class="col-xl-3 col-md-6">
+                <!-- Widget Linearea Two -->
+                
+            <!-- End Widget Linearea Two -->
+            </div>
+            <div class="col-xl-3 col-md-6">                
+            </div>
+            <div class="col-xl-3 col-md-6">                
+            </div>            
+            
+            <div style="padding-bottom:2.0715rem;">
+                <!-- Panel Projects Status -->
+                <div class="panel" id="projects-status" style="height:100%;">
+                    <div id="tran-report-loader" class="loader-container customer-loade">
+                        <div class="loader vertical-align-middle loader-bounce"></div>
+                        <span class="loader-message">Đang tải dữ liệu...</span>
+                    </div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Lượt ký số gần nhất
+                        </h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tbody id="tran-report">
+<tr>
+
+                                        <td class="cell-60">
+                                            <img class="img-fluid" th:src="@{../Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="responsive-hide cell-100" style="font-size:smaller;">
+                                            1.8MB
+                                        </td>
+                                        <td class="cell-60">
+                                            <a class="avatar avatar-lg" href="javascript:void(0)" style="width:32px;">
+                                                <img class="img-fluid" th:src="@{../Content/Images/avatar.jpg}" alt="...">
+                                            </a>
+
+                                        </td>
+                                        <td style="font-size:smaller;">
+                                            wwtest92@gmail.com
+                                        </td>
+                                        <td class="responsive-hide" style="font-size:smaller;">
+                                            <span class="badge badge-round badge-lg hidden-sm-down">
+                                                Chờ x&#225;c nhận
+                                            </span>                                        
+                                        </td>
+                                        <td class="">
+                                            <div class="time">7 ng&#224;y trước</div>
+                                        </td>
+                                    </tr>
+<tr>
+
+                                        <td class="cell-60">
+                                            <img class="img-fluid" th:src="@{../Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="responsive-hide cell-100" style="font-size:smaller;">
+                                            1.8MB
+                                        </td>
+                                        <td class="cell-60">
+                                            <a class="avatar avatar-lg" href="javascript:void(0)" style="width:32px;">
+                                                <img class="img-fluid" th:src="@{../Content/Images/avatar.jpg}" alt="...">
+                                            </a>
+
+                                        </td>
+                                        <td style="font-size:smaller;">
+                                            chamntm@uicvn.com
+                                        </td>
+                                        <td class="responsive-hide" style="font-size:smaller;">
+                                            <span class="badge badge-round badge-lg hidden-sm-down">
+                                                Chờ x&#225;c nhận
+                                            </span>                                        
+                                        </td>
+                                        <td class="">
+                                            <div class="time">7 ng&#224;y trước</div>
+                                        </td>
+                                    </tr>
+<tr>
+
+                                        <td class="cell-60">
+                                            <img class="img-fluid" th:src="@{../Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="responsive-hide cell-100" style="font-size:smaller;">
+                                            1.8MB
+                                        </td>
+                                        <td class="cell-60">
+                                            <a class="avatar avatar-lg" href="javascript:void(0)" style="width:32px;">
+                                                <img class="img-fluid" th:src="@{../Content/Images/avatar.jpg}" alt="...">
+                                            </a>
+
+                                        </td>
+                                        <td style="font-size:smaller;">
+                                            wwtest92@gmail.com
+                                        </td>
+                                        <td class="responsive-hide" style="font-size:smaller;">
+                                            <span class="badge badge-round badge-lg hidden-sm-down">
+                                                Chờ x&#225;c nhận
+                                            </span>                                        
+                                        </td>
+                                        <td class="">
+                                            <div class="time">7 ng&#224;y trước</div>
+                                        </td>
+                                    </tr>
+<tr>
+
+                                        <td class="cell-60">
+                                            <img class="img-fluid" th:src="@{../Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="responsive-hide cell-100" style="font-size:smaller;">
+                                            1.8MB
+                                        </td>
+                                        <td class="cell-60">
+                                            <a class="avatar avatar-lg" href="javascript:void(0)" style="width:32px;">
+                                                <img class="img-fluid" th:src="@{../Content/Images/avatar.jpg}" alt="...">
+                                            </a>
+
+                                        </td>
+                                        <td style="font-size:smaller;">
+                                            chamntm@uicvn.com
+                                        </td>
+                                        <td class="responsive-hide" style="font-size:smaller;">
+                                            <span class="badge badge-round badge-lg hidden-sm-down">
+                                                Chờ xác nhận
+                                            </span>                                        
+                                        </td>
+                                        <td class="">
+                                            <div class="time">7 ngày trước</div>
+                                        </td>
+                                    </tr>
+<tr>
+
+                                        <td class="cell-60">
+                                            <img class="img-fluid" th:src="@{../Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="responsive-hide cell-100" style="font-size:smaller;">
+                                            1.8MB
+                                        </td>
+                                        <td class="cell-60">
+                                            <a class="avatar avatar-lg" href="javascript:void(0)" style="width:32px;">
+                                                <img class="img-fluid" th:src="@{../Content/Images/avatar.jpg}" alt="...">
+                                            </a>
+
+                                        </td>
+                                        <td style="font-size:smaller;">
+                                            wwtest92@gmail.com
+                                        </td>
+                                        <td class="responsive-hide" style="font-size:smaller;">
+                                            <span class="badge badge-round badge-lg hidden-sm-down">
+                                                Chờ xác nhận
+                                            </span>                                        
+                                        </td>
+                                        <td class="">
+                                            <div class="time">7 ngày trước</div>
+                                        </td>
+                                    </tr>
+
+                            </tbody>
+                        </table>                                                
+                    </div>
+                </div>
+                <!-- End Panel Projects Stats -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- End Page -->
+    <!-- Footer -->
+    <!-- Core  -->
+    <script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+    <script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+    <script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+    <script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+    <script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+    <script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+    <script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+    <script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+    <script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+    <script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+    <script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+    <script th:src="@{../Content/js/moment.js}"></script>
+
+    <script th:src="@{../Content/js/Component.js}"></script>
+    <script th:src="@{../Content/js/Plugin.js}"></script>
+    <script th:src="@{../Content/js/Base.js}"></script>
+    <script th:src="@{../Content/js/Config.js}"></script>
+
+    <script th:src="@{../Content/js/GridMenu.js}"></script>
+    <script th:src="@{../Content/js/Menubar.js}"></script>
+    <script th:src="@{../Content/js/PageAside.js}"></script>
+    <script th:src="@{../Content/js/Sidebar.js}"></script>
+    <script th:src="@{../Content/js/matchHeight.js}"></script>
+
+    <script th:src="@{../Content/js/colors.js}"></script>
+
+    <script th:src="@{../Content/js/Site.js}"></script>
+
+    <script th:src="@{../Content/js/toastr.js}"></script>
+
+    
+    <script th:src="@{../assets/Vendor/dropify/dropify.js}"></script>
+    <script th:src="@{../assets/js/dropify.js}"></script>
+    <script th:src="@{../assets/vendor/raphael/raphael.js}"></script>
+    <script th:src="@{../assets/vendor/morris/morris.js}"></script>
+    <script th:src="@{../Scripts/bootstrap-paginator.min.js}"></script>
+    <script th:src="@{../Scripts/notify/pnotify.custom.min.js}"></script>
+    <script th:src="@{../Scripts/Coviet.common.js}"></script>    
+    <script th:src="@{../Scripts/engine/data-engine.js}"></script>
+    <script th:src="@{../Content/Vendor/chartist/chartist.min.js}"></script>
+    <script th:src="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js}"></script>    
+    <script>
+        $(document).ready(function () {
+            $('.nav-account').addClass('active open');
+        });                    
+
+    </script>
+
+    
+    <script>
+        (function (global, factory) {
+            if (typeof define === "function" && define.amd) {
+                define('/pages/faq', ['jquery', 'Site'], factory);
+            } else if (typeof exports !== "undefined") {
+                factory(require('jquery'), require('Site'));
+            } else {
+                var mod = {
+                    exports: {}
+                };
+                factory(global.jQuery, global.Site);
+                global.pagesFaq = mod.exports;
+            }
+        })(this, function (_jquery, _Site) {
+            'use strict';
+
+            var _jquery2 = babelHelpers.interopRequireDefault(_jquery);
+
+            (0, _jquery2.default)(document).ready(function () {
+                (0, _Site.run)();
+
+                if ((0, _jquery2.default)('.faq-list').length) {
+                    (0, _jquery2.default)('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        (0, _jquery2.default)(e.target).addClass('active').siblings().removeClass('active');
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function showMessage(mesg, type) {
+            toastr.options.closeButton = true;
+            toastr.options.timeOut = 10000;
+            toastr.options.extendedTimeOut = 100;
+            toastr.options.progressBar = true;
+            switch (type) {
+                case 'info':
+                    toastr.info(mesg, 'THÔNG BÁO');
+                    break;
+                case 'error':
+                    toastr.error(mesg, 'LỖI');
+                    break;
+                case 'warning':
+                    toastr.warning(mesg, 'CẢNH BÁO');
+
+                    break;
+                default:
+
+            }
+        }
+        $(document).ready(function () {
+            //loadProfileImage();
+            var mesgVal = $('#mesg_value').val();
+            var mesgType = $('#mesg_type').val();
+            if (mesgVal != '') {
+                showMessage(mesgVal, mesgType);
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message=") - 1);
+                window.history.pushState({}, document.title, url);
+
+                if (mesgType.startsWith("modal")) {
+                    showModalMain('');
+                    $("#popupMain").modal({ backdrop: 'static', keyboard: false });
+                }
+            }
+
+            if (mesgType.startsWith('popup')) {
+                $('#' + mesgType).modal('show');
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message") - 1);
+                window.history.pushState({}, document.title, url);
+            }
+
+        });
+        function showModalMain(msgType) {
+            var type = "";
+            if (msgType.endsWith("warning")) { type = "warning"; }
+            if (msgType.endsWith("error")) { type = "error"; }
+            if (msgType.endsWith("success")) { type = "success"; }
+            $("#popupMain .modal-header").css("background-image", "url('../Content/Images/icons/" + type + ".png')");
+        }        
+    </script>
+
+</body>
+</html>

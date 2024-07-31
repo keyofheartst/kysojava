@@ -1,0 +1,247 @@
+﻿.top-content {
+    padding: 50px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+    .top-content i.icon-top {
+        font-size: 100px;
+        width: 150px;
+    }
+
+    .top-content table {
+        margin: 0px auto;
+        padding: 0px;
+    }
+
+        .top-content table td {
+            height: 30px;
+            vertical-align: middle;
+        }
+
+            .top-content table td.first-col {
+                text-align: right;
+                padding-right: 15px;
+            }
+
+            .top-content table td.second-col {
+                min-width: 300px;
+                text-align: left;
+            }
+
+.progress {
+    margin-bottom: 0px;
+    border-radius: 1px;
+    height: 18px;
+    border-radius: 9px;
+}
+
+.file-info {
+    text-align: left;
+}
+
+.progress-bar {
+    background-color: #ccd5db !important;
+}
+
+.top-content table td i {
+    font-size: 20px;
+    float: left;
+    width: 20px;
+    text-align: center;
+}
+
+.backonly {
+    min-width: 200px;
+    background-color: black;
+}
+
+.pearl-title {
+    font-size: 1rem;
+}
+
+.pearl-icon, .pearl-number {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+}
+
+.init-view {
+    text-align: center;
+    padding-top: 20px;
+}
+
+    .init-view .btn {
+        max-width: 400px;
+        margin: 0px auto !important;
+        font-size: 1rem;
+        border-radius: 50px;
+    }
+    .init-view .btn-pill-left{
+        padding: 6px 40px;
+        border-radius: 500px 0 0 500px !important;
+    }
+    .init-view .btn-pill-right{
+        padding: 6px 40px;
+        border-radius: 0 500px 500px 0 !important;
+    }
+
+button.sign-tool-sel i {
+    font-size: 20px;
+}
+
+button.sign-tool-sel h4 {
+    color: white;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+div.hidden {
+    display: none !important;
+}
+
+.dropify-wrapper {
+    height: 150px !important;
+}
+
+.example-well {
+    margin-top: -150px;
+    width: 100%;
+    height: 150px;
+    z-index: 9;
+    background: #f1f4f5;
+    border: 2px solid #e4eaec;
+    margin-bottom: 0px;
+}
+
+.loader-rotate-plane {
+    width: 1.5em;
+    height: 1.5em;
+    background: #3e8ef7;
+}
+
+.loader-content-custom {
+    display: none;
+}
+
+#loading-message {
+    color: #666;
+    position: absolute;
+    /*bottom: 70px;*/
+    top: 160px;
+    z-index: 9;
+    width: 100%;
+    left: 0px;
+    font-weight: 500;
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.page {
+    /*background: #fff;*/
+}
+
+.action-row {
+    padding-bottom: 10px;
+}
+
+#checkbox-sign-advanced {
+    padding: 10px;
+    display: none;
+}
+
+.example {
+    margin-bottom: 20px !important;
+}
+
+.modal-sidebar {
+    width: 450px !important;
+}
+
+@media (max-width: 1599px) {
+  .modal-sidebar {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal-sidebar {
+    width: 260px !important;
+  }
+}
+#verifyResult .modal-sidebar {
+    min-width: 30% !important;
+}
+#verifyResult th{
+    padding-left: 25px;
+}
+
+.modal-sidebar .modal-content {
+    height: 100%;
+}
+
+        .modal-sidebar .modal-content .modal-body {
+            height: 100%;
+            padding: 0px;
+        }
+
+    .modal-sidebar button.close {
+        right: 40px;
+    }
+
+
+.page-aside {
+    width: 450px;
+    background-color: #f3f7f9;
+}
+
+.list-group .friend-info {
+    padding: 0px !important;
+    padding-left: 15px !important;
+}
+
+.form-horizontal .form-control-label{
+    text-align: left !important;
+}
+.step-actions{
+    max-width: 400px !important;
+    margin: 0px auto;
+    text-align: left;
+}
+.step-actions .btn{
+    width: 100px !important;
+}
+.step-actions .second{
+    float: right;
+}
+.btn-round{
+    border-radius: 50px !important;
+}
+.cert-btn{
+    padding: 2px 15px;
+}
+.pearls .btn-round {
+    margin-top: 10px;
+    padding: 2px 15px !important;
+}
+
+.page-content .panel-container {
+    min-height: 80vh !important;
+}
+.page-content .panel-body{
+    border: none !important;
+}
+
+.actions a {
+    color: white !important;
+}
+
+.avatar img{
+    border-radius: 0px !important;
+}
+.avatar i{
+    width: 15px !important;
+    height: 15px !important;
+}

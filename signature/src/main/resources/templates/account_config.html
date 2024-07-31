@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this is only for responsive design to zoom 100%-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="og:title" property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="">
+
+    <title>Thông tin tài khoản</title>
+
+    <link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+	
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist/chartist.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/toastr/toastr.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/toastr.css}" rel="stylesheet">
+
+<!-- Fonts -->
+	<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet">
+	<link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet">
+	<link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lt IE 10]>
+	    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+	    <script src="../../global/vendor/respond/respond.min.js"></script>
+	    <![endif]-->
+	<!-- Scripts -->
+	
+	<script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+	<script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>       
+    <script>
+        Breakpoints();
+    </script>
+    <style>
+        .css-menubar .page, .css-menubar .site-footer {
+            margin-left: 0px !important;
+        }
+
+        .modal-info .modal-body {
+            padding: 20px !important;
+        }
+
+        div[role='log'] {
+            display: none;
+        }
+
+        #popupMain .modal-header {
+            background-image: url("/..Content/Images/icons/warning.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 165px;
+        }
+
+        .site-menu-item.active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .loader-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(245,244,245,0.75);
+            display: flex;
+            align-items: center;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+
+        .loader-message {
+            position: absolute;
+            top: calc(50% + 35px);
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .loader-container-inline {
+            margin-top: 1.0em;
+            display: none;
+        }
+
+            .loader-container-inline .loader {
+                width: .75em;
+                height: .75em;
+            }
+            #number_notif{
+                display: none;
+            }
+        .unselectable {
+            pointer-events: none;
+            opacity: 0.5; /* Optional: to visually indicate that the element is disabled */
+        }
+    </style>
+</head>
+<body class="animsition site-navbar-small dashboard">
+    <input id="mesg_type" type="hidden" />
+    <input id="mesg_value" type="hidden" />
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided"
+                    data-toggle="menubar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse"
+                    data-toggle="collapse">
+                <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="">
+                <img class="navbar-brand-logo" style="margin-left: -8px" th:src="@{/Content/Images/Shortcut.ico}" title="UIC-Kyso" />
+                <span class="navbar-brand-text hidden-xs-down"> UIC - KÝ SỐ</span>
+            </div>
+        </div>
+        <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+                <!-- Navbar Toolbar -->
+                <ul class="nav navbar-toolbar">
+                    <li class="nav-item hidden-float hidden-md-up" id="toggleMenubar">
+                        <a class="nav-link" data-toggle="menubar" href="#" role="button">
+                            <i class="icon hamburger hamburger-arrow-left">
+                                <span class="sr-only">Toggle menubar</span>
+                                <span class="hamburger-bar"></span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Navbar Toolbar -->
+                <!-- Navbar Toolbar Right -->
+                <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                    <li class="nav-item dropdown nav-account">
+                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+                           data-animation="scale-up" role="button">
+                            <small style="font-weight:500;text-transform:uppercase;">Dương Văn Chiến</small>
+                            <span class="avatar avatar-online" style="width:30px;height:30px;overflow:hidden;">
+                                    <img id="avatar-img" th:src="@{../Content/Images/avatar.jpg}" />
+                            </span>
+                            <span></span>
+                        </a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="/Account/Info" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Thông tin tài khoản</a>                            
+                            <div class="dropdown-divider" role="presentation"></div>
+						<form action="/Account/LogOut" method="post"><input name="__RequestVerificationToken" type="hidden" value="1IlY2kYaEzQjwiO0C3CfCOHeaNwlufG1FG_mt-qWTDkwsRjt0wjPf_7Rj5CLvcewYLFCHY7d9feQ8VsXTwCPNKzRNaY1" /> 
+                               <button class="dropdown-item" type="submit" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Đăng xuất</button>
+						</form>  </div>
+                    </li>                    
+                </ul>
+                <!-- End Navbar Toolbar Right -->
+            </div>            
+            <!-- End Navbar Collapse -->
+            <!-- Site Navbar Seach -->
+            <!-- End Site Navbar Seach -->
+        </div>
+    </nav>
+
+    <div class="site-menubar  ">
+     
+
+        <ul class="site-menu">
+                <li class="site-menu-item nav-account">
+                    <a href="/Home/Dashboard">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Dashboard</span>
+                    </a>
+                </li>
+            <li class="site-menu-item nav-signature has-sub">
+                <a href="javascript:void(0)">
+                    <i class="site-menu-icon md-border-color" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch Ký số</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                    <li class="site-menu-item nav-sign">
+                        <a class="animsition-link" href="/Signature/Index">
+                            <span class="site-menu-title">Ký số</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Verify/Index">
+                            <span class="site-menu-title">Kiểm tra chữ ký</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Signature/InitByPartner">
+                            <span class="site-menu-title">Trình ký</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Account/Group">
+                        <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                        <span class="site-menu-title">Quản lý tài khoản</span>
+                    </a>
+                </li>
+
+            <li class="site-menu-item nav-group">
+                <a href="/Transactions/WaitingTran">
+                    <i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch chờ xác nhận</span>
+                </a>
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Transactions/GroupIndex">
+                        <i class="site-menu-icon md-time" aria-hidden="true"></i>
+                        <span class="site-menu-title">Lịch sử giao dịch</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item nav-group">
+                    <a href="/SystemConfig/Index">
+                        <i class="site-menu-icon md-settings" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Cài đặt</span>
+                    </a>
+                </li>
+
+        </ul>
+    </div>            
+    <!-- Modal -->
+    <div class="modal fade modal-primary" id="popupMain" aria-hidden="true" aria-labelledby="popupMain"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-simple">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <div class="panel-heading" style="padding: 0px;">
+                            <h3 class="panel-title text-center"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-outline float-center" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+    <!-- Page -->
+    
+
+
+<link th:href="@{/Content/Vendor/dropify/dropify.css}" rel="stylesheet"/>
+<link th:href="@{/Content/css/profile.css}" rel="stylesheet"/>
+<link th:href="@{/Content/Vendor/formvalidation/formValidation.css}" rel="stylesheet"/>
+<link th:href="@{/Content/Vendor/bootstrap-datepicker/bootstrap-datepicker.css}" rel="stylesheet"/>
+<link th:href="@{/Content/css/mailbox.css}" rel="stylesheet"/>
+<link th:href="@{/Content/css/signature.css}" rel="stylesheet"/>
+<link th:href="@{/Content/css/location.css}" rel="stylesheet"/>
+<link th:href="@{/Content/Vendor/dropify/dropify.css}" rel="stylesheet"/>
+<style>
+    .info-table td {
+        padding-right: 15px !important;
+    }
+
+    .tran-type-lbl {
+        border-radius: 500px;
+        font-weight: normal;
+        padding: 2px 9px;
+        padding-bottom: 1px;
+        color: #fff !important;
+    }
+
+    .profile-stat-count {
+        font-size: 15px !important;
+    }
+
+    .example {
+        width: 150px;
+        height: 150px;
+        margin: 50px auto;
+    }
+
+    .dropify-wrapper {
+        border-radius: 500px;
+    }
+    .info-head{
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 700;
+        color: #4069E5FF; /
+    }
+    .info-text {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 700;
+        color: #323842FF !important; /* neutral-700 */
+    }
+    .info-text-1 {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 700;
+        color: #171A1FFF !important;; /* neutral-900 */
+    }
+    #body-ws thead tr {
+        background-color: #247cf0;
+    }
+
+    #body-ws thead tr th {
+        color: white;
+    }
+    /*i.icon {*/
+    /*    color: red;*/
+    /*}*/
+    thead{
+
+    }
+    .unselectable {
+        pointer-events: none;
+        opacity: 0.5; /* Optional: to visually indicate that the element is disabled */
+    }
+    .information .form-group label[data-target="input"] {
+        top: 1rem !important;
+    }
+
+    .information .form-group input {
+        margin-left: 10rem;
+    }
+
+    .information .form-group select {
+        margin-left: 10rem;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .radio-custom {
+        margin-top: unset;
+    }
+
+    .form-material.floating + .form-material.floating {
+        margin-top: 20px;
+    }
+</style>
+<div class="page page-profile">
+    <div class="page-content container-fluid app-mailbox">
+        <div class="row" data-plugin="matchHeight" data-by-row="true">
+            <div class="col-lg-8">
+                <!-- Page Widget -->
+                <div class="card card-shadow text-center" id="user-info">
+                    <div class="card-block">
+                        <a class="avatar avatar-lg overlay overlay-hover" href="javascript::void(0)" data-target="#changeAvatarModal" data-toggle="modal" title="Thay đổi Avatar">
+                            <img src="/Content/Images/avatar.jpg"/>
+                            <figcaption class="overlay-bottom overlay-panel overlay-background overlay-slide-bottom">
+                                <span>Change Avatar</span>
+                            </figcaption>
+                        </a>
+                        <br/>
+                        <span class="info-text-1">Dương Văn Chiến</span>
+                        <br/>
+                        <span class="info-text">Ngày tham gia</span><br/>
+                        <span>
+                            12/07/2024
+                        </span>
+                    </div>
+                </div>
+                <!-- End Page Widget -->
+                <div class="card card-shadow text-center" id="certs-info">
+                    <table class="table table-bordered" data-plugin="animateList" data-animate="fade"
+                           data-child="tr" id="body-ws">
+                        <thead class="hidden-sm-down">
+                        <tr>
+                            <th width="60">STT</th>
+                            <th>Tên CTS</th>
+                            <th>Hiệu lực CTS</th>
+                            <th>Worker Signer</th>
+                            <th>Thời gian gán CTS</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-section table table-hover table-striped fixed-columns" data-plugin="tableSection">
+                        <tr role="row" class="event">
+
+                            <td style="text-align:center;">1 </td>
+                            <td>UIC</td>
+                            <td>05/07/2024 - 05/07/2025</td>
+                            <td>CMS_UIC</td>
+                            <td>12/07/2024</td>
+                            <td><span class="badge badge-success">Đang c&#242;n hiệu lực</span></td>
+                            <td class="">
+                                    <button class="btn btn-online open-modal-btn" data-id="23ce182e-8951-46c8-bf06-62ecfec328c1" data-cert-id="4265af51-8c99-41f4-ab6a-182a688847cf" data-toggle="modal" data-target="#create-delete-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                        <i class="icon fa-trash" aria-hidden="true" style="color: red" data-toggle="tooltip" data-placement="top" data-original-title="Xóa"></i>
+                                    </button>
+                                    <a href="/Certificates/GetCert?certID=4265af51-8c99-41f4-ab6a-182a688847cf" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải về"><i class="icon wb-download" aria-hidden="true"></i> </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                
+            </div>
+            <div class="col-lg-4" id="tab-content">
+                    <!-- Panel -->
+                    <div class="panel">
+                        <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
+                            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="active nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
+                                       role="tab">
+                                        <span class="d-none d-sm-block info-head">Thông tin</span>
+                                        <span class="d-sm-none">T.tin</span>
+                                    </a>
+                                </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" href="#activities"
+                                           aria-controls="activities" role="tab">
+                                            <span class="d-none d-sm-block info-head">Bảo mật</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                            <div class="tab-content information">
+
+                                <div class="tab-pane active animation-slide-left" id="profile" role="tabpanel">
+<form action="/Account/UpdateAccount" class="" id="update-profile-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="x-1tBNQY0RINagbr7oZY3RzJBsxCrmzbj-0vBjtEXQGX5zYrc1e80QTDvjbTRZQJvZT57cgAJfnJQbLuyPs17JJ_YhI1" />                                        <div class="form-material floating " data-plugin="formMaterial">
+                                            <label data-target="input" class="floating-label info-text">Họ tên *</label><br/>
+                                            <input type="text" class="form-control " id="fullName" name="FullName" placeholder="Họ tên" value="Dương Văn Chiến" required>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-material floating" data-plugin="formMaterial">
+                                            <label data-target="input" class="floating-label info-text">Số điện thoại *</label><br/>
+                                            <input type="text" class="form-control unselectable" id="phoneNum" name="PhoneNumber" placeholder="Số điện thoại (dùng để nhận mã OTP)" value="0962145390" required>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-material floating" data-plugin="formMaterial">
+                                            <label data-target="input" class="floating-label info-text">Email *</label><br/>
+                                            <input type="text" class="form-control unselectable" id="email" name="Email" placeholder="Email" value="chiendv@uicvn.com" required>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-material floating" data-plugin="formMaterial">
+                                            <label data-target="input" class="floating-label info-text">Mã nhân viên</label><br/>
+                                            <input type="text" class="form-control " id="userName" name="UserName" placeholder="Mã nhân viên" value="456">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-material floating" data-plugin="formMaterial">
+                                            <label data-target="input" class="floating-label info-text">Chức danh </label><br/>
+                                            <input type="text" class="form-control " id="title" name="Title" placeholder="Chức danh">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group form-material floating " data-plugin="formMaterial">
+                                            <br/>
+                                            <div class="row">
+                                                <label class="floating-label info-text">Giới tính *</label>
+                                                <ul class="list-unstyled list-inline " style="margin-left: 10rem">
+                                                    <li class="list-inline-item">
+                                                        <div class="radio-custom radio-primary">
+                                                            <input type="radio" id="manNormal" name="Sex"
+                                                                   checked                                                                   value="true">
+                                                            <label for="manNormal">Nam</label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-inline-item next-item">
+                                                        <div class="radio-custom radio-primary">
+                                                            <input id="womanNormal" type="radio" name="Sex"
+                                                                                                                                      value="false">
+                                                            <label for="womanNormal">Nữ</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                            <div class="form-material floating" data-plugin="formMaterial">
+                                                <label data-target="input" class="floating-label info-text">Loại tài khoản</label><br/>
+                                                <input type="hidden" class="form-control" value="1" name="AccountType">
+                                                    <input type="text" class="form-control" value="Quản trị hệ thống" readonly="true">
+                                            </div>
+                                        <input type="hidden" name="Id" value="23ce182e-8951-46c8-bf06-62ecfec328c1">
+                                        <button type="submit" class="btn btn-primary submit-btn btn-animate btn-animate-side" id="update-profile-submit">
+                                            <span><i class="icon fa fa-send-o" aria-hidden="true"></i>Cập nhật thông tin</span>
+                                        </button>
+</form>                                </div>
+                                    <div class="tab-pane animation-slide-left" id="activities" role="tabpanel">
+
+                                        <style>
+    .page-profile .page-content .list-group-item {
+        padding: 2px 5px;
+        border: none;
+    }
+    .information .form-group input {
+        margin-left: 0 !important;
+    }
+</style>
+
+<div class="row" style="padding-top: 25px;">
+    <div class="col-md-12">
+        <div class="card card-bordered card-bordered-radius" style=" border: none; ">
+            <div class="card-header  card-header-bordered">
+                <i class="icon wb-lock text-primary mr-5" aria-hidden="true"></i> Đổi mật khẩu
+            </div>
+            <div class="card-block div-change-password">
+                <form id="change-pass-form" method="post" action="">
+                    <input name="__RequestVerificationToken" type="hidden" value="uUOks_tjVbuge_iirhkYRRzZRf5mqmQFyN1zfnX75I_JA4YGS2qsEuqNT_qRCVsuAGkF2UBxPyXK30MS4lBq1Kw1Cw81" />
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="inputCurrentPass" name="OldPassword" placeholder="Mật khẩu hiện tại *" required maxlength="30">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePasswordVisibility('inputCurrentPass')">
+                                    <i class="fa fa-eye-slash" id="toggleCurrentPass"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="inputNewPass" name="NewPassword" placeholder="Mật khẩu mới *" required maxlength="30">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePasswordVisibility('inputNewPass')">
+                                    <i class="fa fa-eye-slash" id="toggleNewPass"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="inputNewPassAgain" name="ConfirmPassword" placeholder="Xác nhận mật khẩu mới *" required maxlength="30">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePasswordVisibility('inputNewPassAgain')">
+                                    <i class="fa fa-eye-slash" id="toggleNewPassAgain"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        <button type="submit" class="btn btn-primary submit-btn btn-animate btn-animate-side" onclick="createChange()"><span><i class="icon fa fa-send-o" aria-hidden="true"></i>&nbsp;&nbsp;Đổi mật khẩu</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = document.querySelector(`#${inputId} + .input-group-append .fa`);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+    }
+    function createChange() {
+
+        let form = $('#change-pass-form');
+        let formValidation = form.data('formValidation');
+
+        // Kiểm tra xem formValidation đã được khởi tạo hay chưa
+        if (!formValidation) {
+            console.error('formValidation chưa được khởi tạo.');
+            return false;
+        }
+
+        // Validate the form
+        formValidation.validate();
+
+        // Check if the form is valid
+        if (!formValidation.isValid()) {
+            return false;
+        }
+
+        let formData = new FormData(form[0]);
+
+        $.ajax({
+            url: '/Account/ChangePass', // Ensure this URL matches your controller action
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+            },
+            success: function (result) {
+                if (result === "") {
+                    window.location.reload();
+                } else if (result.ResponseCode !== 1) {
+                    showMessage(result.Message, 'error');
+                } else {
+                    showMessage('Đổi mật khẩu thành công!', 'info');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500); // Reload after a short delay to ensure modal is fully hidden
+                }
+            },
+            xhr: function () {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) {
+                    // You can add progress handling here if needed
+                }
+                return myXhr;
+            },
+            error: function () {
+                showMessage('Lỗi truy vấn');
+            }
+        });
+    }
+
+</script>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Panel -->
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="changeAvatarModal" aria-hidden="true" aria-labelledby="changeAvatarModal"
+     role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple modal-sidebar modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Đổi hình đại diện</h4>
+            </div>
+<form action="/Account/ChangeAvatar" class="" enctype="multipart/form-data" method="post"><input name="__RequestVerificationToken" type="hidden" value="7uRX41lGmD_uBt7LgriP983lp7V1FpKw2UDJFv_Fz2P730rVeER7Z19MwB_1Ib-kssWn3wQnPnZDqCUC3-Ws3RGEFsQ1" />            <div class="modal-body">
+                <div id="partner-list" class="list-group flex-row flex-wrap">
+                    <div class="example" style="width:200px">
+                        <input type="file" id="input-file-max-fs" data-max-file-size="5M" name="logo"/>
+                        <div id="sign-loading" class="example-loading example-well vertical-align text-center loader-content-custom">
+                            <div class="loader vertical-align-middle loader-bounce"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="Id" value="23ce182e-8951-46c8-bf06-62ecfec328c1">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>
+                <button type="button" class="btn btn-default btn-block btn-pure" data-dismiss="modal">Đóng</button>
+            </div>
+</form>        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<!-- Modal-->
+
+<div class="modal fade" id="create-delete-modal" aria-hidden="true" aria-labelledby="create-delete-modal-label" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+            <div class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title modal-title-text" id="create-delete-modal-label">Xác nhận</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="err-sumary">
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+<form action="/Account/QuickAction" method="post"><input name="__RequestVerificationToken" type="hidden" value="f7FLDDO8a70J4mOIyN-FgVUDHAPQQ_35B8hvh_r5BCeh0cN28332P0XAQkryGCiHIFABCvYJgoC4p9ShKlVHhKJ8Ra41" />                <input type="hidden" name="Action" value="DeleteGanCTS"/>
+                <input type="hidden" id="deleteGanCTSID" name="Id" value=""/>
+                <input type="hidden" id="deleteGanCTSCertID" name="certID" value=""/>
+                <div class="row">
+                    <div class="col-xl-12 form-group">
+                        Bạn có chắc chắn muốn xóa chứng thư số với tài khoản này?
+                    </div>
+                    <div class="col-xl-12 form-group">
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button class="btn btn-outline-info" type="button" data-dismiss="modal">Hủy</button>
+                            <button class="btn btn-primary" type="submit" role="button">Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+</form>            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-width: 767px) {
+        #confirmUnregisterDevice #confirmUnregisterDevice-description, #confirmUnregisterThirdPartyAccess #confirmUnregisterThirdPartyAccess-description {
+            text-align: center !important;
+        }
+    }
+</style>
+    <script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+	<script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+	<script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+	<script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+	<script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+	<script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+	<script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+	<script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+	<script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+	<script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+	<script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+	<script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+	<script th:src="@{../Content/js/moment.js}"></script>
+
+    <script th:src="@{../Content/js/Component.js}"></script>
+	<script th:src="@{../Content/js/Plugin.js}"></script>
+	<script th:src="@{../Content/js/Base.js}"></script>
+	<script th:src="@{../Content/js/Config.js}"></script>
+
+    <script th:src="@{../Content/js/GridMenu.js}"></script>
+	<script th:src="@{../Content/js/Menubar.js}"></script>
+	<script th:src="@{../Content/js/PageAside.js}"></script>
+	<script th:src="@{../Content/js/Sidebar.js}"></script>
+	<script th:src="@{../Content/js/matchHeight.js}"></script>
+
+    <script th:src="@{../Content/js/colors.js}"></script>
+
+	<script th:src="@{../Content/js/Site.js}"></script>
+
+	<script th:src="@{../Content/js/toastr.js}"></script>
+
+    
+	<script th:src="@{../Content/Vendor/bootstrap-datepicker/bootstrap-datepicker.js}"></script>
+	<script th:src="@{../Content/Vendor/bootstrap-datepicker/bootstrap-datepicker.vi.min.js}"></script>
+	<script th:src="@{../Content/Vendor/formvalidation/formValidation.js}"></script>
+	<script th:src="@{../Content/Vendor/formvalidation/framework/bootstrap4.js}"></script>
+	<script th:src="@{../Content/Vendor/formvalidation/language/vi_VN.js}"></script>
+	<script th:src="@{../Content/Vendor/dropify/dropify.js}"></script>
+	<script th:src="@{../Content/js/dropify.js}"></script>
+	<script th:src="@{../Content/js/profile.js?v=1}"></script>
+	<script th:src="@{../Content/js/material.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('#input-file-max-fs').dropify({
+            messages: {
+                'default': 'Kéo Hình đại diện vào khung này hoặc click để chọn',
+                'replace': 'Kéo Hình đại diện vào khung này hoặc click để thay thế',
+                'remove': 'Hủy chọn tệp',
+                'error': 'Đã có lỗi xảy ra'
+            }
+        });
+        $('.open-modal-btn').on('click', function () {
+            var Id = $(this).data('id');
+            var certID = $(this).data('cert-id');
+            $('#deleteGanCTSID').val(Id);
+            $('#deleteGanCTSCertID').val(certID);
+        });
+    });
+</script>
+
+    
+    <script>
+        (function (global, factory) {
+            if (typeof define === "function" && define.amd) {
+                define('/pages/faq', ['jquery', 'Site'], factory);
+            } else if (typeof exports !== "undefined") {
+                factory(require('jquery'), require('Site'));
+            } else {
+                var mod = {
+                    exports: {}
+                };
+                factory(global.jQuery, global.Site);
+                global.pagesFaq = mod.exports;
+            }
+        })(this, function (_jquery, _Site) {
+            'use strict';
+
+            var _jquery2 = babelHelpers.interopRequireDefault(_jquery);
+
+            (0, _jquery2.default)(document).ready(function () {
+                (0, _Site.run)();
+
+                if ((0, _jquery2.default)('.faq-list').length) {
+                    (0, _jquery2.default)('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        (0, _jquery2.default)(e.target).addClass('active').siblings().removeClass('active');
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function showMessage(mesg, type) {
+            toastr.options.closeButton = true;
+            toastr.options.timeOut = 10000;
+            toastr.options.extendedTimeOut = 100;
+            toastr.options.progressBar = true;
+            switch (type) {
+                case 'info':
+                    toastr.info(mesg, 'THÔNG BÁO');
+                    break;
+                case 'error':
+                    toastr.error(mesg, 'LỖI');
+                    break;
+                case 'warning':
+                    toastr.warning(mesg, 'CẢNH BÁO');
+
+                    break;
+                default:
+
+            }
+        }
+        $(document).ready(function () {
+            //loadProfileImage();
+            var mesgVal = $('#mesg_value').val();
+            var mesgType = $('#mesg_type').val();
+            if (mesgVal != '') {
+                showMessage(mesgVal, mesgType);
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message=") - 1);
+                window.history.pushState({}, document.title, url);
+
+                if (mesgType.startsWith("modal")) {
+                    showModalMain('');
+                    $("#popupMain").modal({ backdrop: 'static', keyboard: false });
+                }
+            }
+
+            if (mesgType.startsWith('popup')) {
+                $('#' + mesgType).modal('show');
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message") - 1);
+                window.history.pushState({}, document.title, url);
+            }
+
+        });
+        function showModalMain(msgType) {
+            var type = "";
+            if (msgType.endsWith("warning")) { type = "warning"; }
+            if (msgType.endsWith("error")) { type = "error"; }
+            if (msgType.endsWith("success")) { type = "success"; }
+            $("#popupMain .modal-header").css("background-image", "url('/Content/Images/icons/" + type + ".png')");
+        }        
+    </script>
+
+</body>
+</html>

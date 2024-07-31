@@ -1,0 +1,147 @@
+﻿ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.pagination li a {
+    height: 40px;
+}
+
+.dropdown-toggle:after {
+    display: none !important;
+}
+
+.dropdown a {
+    text-decoration: none !important;
+}
+
+.tran-type-lbl {
+    display: block;
+    width: 75px;
+    text-align: center;
+    font-size: 9px !important;
+}
+
+.tokenfield .token.invalid {
+    border-radius: 0;
+    background: 0 0;
+    border: 1px dotted #f44336;
+    color: #f44336;
+    font-weight: bolder;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(60, 62, 63, 0.11);
+}
+
+.badge {
+    color: white;
+}
+
+.badge-lg {
+    font-size: 90%;
+    font-weight: 300;
+    padding: 0.35em 1.2em;
+}
+
+.table tfoot th, .table thead th {
+    font-weight: 500;
+}
+
+.page-content-table .table > thead > tr > th:first-child, .page-content-table .table > tbody > tr > td:first-child {
+    padding-left: .572rem;
+}
+
+#mailboxTable thead tr {
+    background-color: #247cf0;
+}
+
+    #mailboxTable thead tr th {
+        color: white;
+    }
+
+.page-content-table .table > tbody > tr > td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.center-align {
+    text-align: center;
+}
+
+td a {
+    color: #526069;
+    text-decoration: none !important;
+}
+
+.app-work .panel-heading {
+    overflow: auto;
+    padding: 20px;
+}
+
+.app-work .panel-title,
+.app-work .panel-search-form {
+    float: left;
+}
+
+.app-work .panel-title {
+    font-size: 14px;
+    font-weight: 100;
+    padding: 29px 10px;
+}
+
+.app-work .panel-search-form {
+    padding: 19px;
+    margin-left: 20px;
+}
+
+    .app-work .panel-search-form .form-control {
+        border: 0;
+        border-radius: 17px;
+        width: 280px;
+        opacity: 0.6;
+        background-color: #f8fafb;
+    }
+
+        .app-work .panel-search-form .form-control:hover, .app-work .panel-search-form .form-control:focus {
+            background-color: #f5f5f5;
+        }
+
+    .app-work .panel-search-form .icon {
+        color: #aeb5b9;
+        font-size: 16px;
+        position: absolute;
+        top: 11px;
+        left: 107%;
+        transition: all .4s;
+    }
+
+        .app-work .panel-search-form .icon:hover {
+            color: #3949ab;
+        }
+
+.app-work .panel-info {
+    float: right;
+    padding: 11px 0;
+    margin: 0;
+}
+
+    .app-work .panel-info li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 50px;
+        text-align: center;
+    }
+
+        .app-work .panel-info li:last-child {
+            margin: 0;
+        }
+
+        .app-work .panel-info li .num {
+            font-size: 24px;
+            line-height: 1.2em;
+        }
+
+        .app-work .panel-info li p {
+            margin: 0;
+        }

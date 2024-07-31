@@ -1,0 +1,14 @@
+﻿.modal-sidebar{
+    width: 40% !important;
+}
+.modal-sidebar button.close{
+    right: 40px;
+}
+.modal-body{
+    color: #4c4a4a;
+}
+@media(max-width: 550px){
+    .modal-sidebar{
+        width: 100% !important;
+    }
+}

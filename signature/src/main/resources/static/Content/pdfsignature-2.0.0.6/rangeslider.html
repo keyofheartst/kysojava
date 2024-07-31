@@ -1,0 +1,86 @@
+<html>
+<head>
+<link href="jquery-ui.css" rel="stylesheet" />
+<style>
+.demo {
+    padding: 50px !important;
+}
+;
+ #esign-page-scroller {
+    position: relative;
+    text-align: left;
+}
+#esign-page-scroller .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 2em;
+    height: 2em;
+    cursor: default;
+}
+#esign-page-scroller .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+}
+/* For IE8 - See #6727 */
+ .ui-slider.ui-state-disabled .ui-slider-handle, .ui-slider.ui-state-disabled .ui-slider-range {
+    filter: inherit;
+}
+#esign-page-scroller {
+    width: 1.5em;
+    height: 100px;
+}
+#esign-page-scroller .ui-slider-handle {
+    left: -.3em;
+    margin-left: 0;
+    margin-bottom: -.6em;
+}
+#esign-page-scroller .ui-slider-range {
+    left: 0;
+    width: 100%;
+}
+#esign-page-scroller .ui-slider-range-min {
+    bottom: 0;
+}
+#esign-page-scroller .ui-slider-range-max {
+    top: 0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0px;
+}
+.ui-slider-range, .ui-widget-header, .ui-slider-range-min, .ui-slider, .ui-slider-vertical, .ui-widget, .ui-widget-content {
+    border-radius: 10px;
+}
+</style>
+</head>
+<div class="demo">
+    <p>
+        <label for="amount">Volume:</label>
+        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+    </p>
+    <br />
+    <div id="esign-page-scroller" style="height:200px;"></div>
+</div>
+<button id='decrease' type="button">-</button>
+<button id='increase' type="button">+</button>
+
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+<script src='jquery-ui.js'></script>
+<script>
+var s = $("#esign-page-scroller").slider({
+    orientation: "vertical",
+    range: "min",
+    min: 0,
+    max: 200,
+    step: 1,
+    value: 10,
+    slide: function (event, ui) {
+        $("#amount").val(ui.value);
+    }
+});
+
+</script>
+</html>

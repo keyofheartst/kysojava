@@ -1,0 +1,53 @@
+﻿
+.loader-container {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 20px);
+    z-index: 9;
+    background: rgba(245,244,245,0.75);
+    display: flex;
+    align-items: center;
+    top: -22px;
+    display: none;
+}
+
+.loader-message {
+    position: absolute;
+    top: calc(50% + 35px);
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+
+#contract_list td a{
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.panel-action-right {
+    float: left;
+    height: 2.288rem;
+    line-height: 2.288rem;
+    padding: 0px;
+}
+
+    .panel-action-right .btn {
+        height: 2.2rem;
+        line-height: 100%;
+        margin-right: 10px;
+    }
+
+    .panel-action-right .panel-action {
+        color: #424242;
+        line-height: 2.288rem;
+        /* margin: 0px; */
+        padding: 0px;
+    }
+
+.err-sumary {
+    padding: 10px;
+    background: red;
+    color: white;
+    border-radius: 3px;
+    display: none;
+}

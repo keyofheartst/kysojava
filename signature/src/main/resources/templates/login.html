@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this is only for responsive design to zoom 100%-->
+    <meta name="description" content="VNPT Ký số là dịch vụ cho thuê giải pháp chứng thực tập trung. Ký số mọi lúc mọi nơi trên trình duyệt web, mobile, ...">
+    <meta name="author" content="VNPT IT">
+    <meta name="og:title" property="og:title" content="Dịch vụ VNPT Ký số | Ký số mọi lúc mọi nơi trên trình duyệt web, mobile, ...">
+    <meta property="og:image" content="https://kydientu.vnpt-ca.vn/Content/Images/Shortcut.ico">
+    <meta property="og:url" content="https://kydientu.vnpt-ca.vn">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="VNPT Ký số là dịch vụ cho thuê giải pháp chứng thực tập trung. Ký số mọi lúc mọi nơi trên trình duyệt web, mobile, ...">
+    <meta property="og:site_name" content="Hệ thống UIC Ký số">
+    <meta name="author" content="">
+
+    <title>Đăng nhập - Ký số không token</title>
+	    
+    <link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+    
+	<!-- Fonts -->
+	<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet">
+	<link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet">
+	<link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet">
+	
+	<!--[if lt IE 9]>
+	    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lt IE 10]>
+	    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+	    <script src="../../global/vendor/respond/respond.min.js"></script>
+	    <![endif]-->
+	<!-- Scripts -->
+	
+	<script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+	<script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>
+    <script>
+        Breakpoints();
+    </script>
+</head>
+<body class="animsition layout-full page-dark page-login-v3" style="animation-duration: 800ms; opacity: 1;">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Page -->
+
+    
+
+
+<link th:href="@{../Content/css/animated-background.css}" rel="stylesheet">
+<link th:href="@{../Content/css/login-v3.css}" rel="stylesheet">
+<link th:href="@{../Content/Vendor/formvalidation/formValidation.css}" rel="stylesheet">
+<style>
+    .validation-summary-errors ul {
+        padding: 0px !important;
+    }
+
+        .validation-summary-errors ul li {
+            list-style: none !important;
+        }
+
+
+    .page-dark.layout-full .brand-text, .page-dark.layout-full {
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .panel {
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    }
+    .panel {
+        background: #F3F4F6FF !important;}
+    .label-login{
+        font-size: 14px !important;
+        line-height: 22px !important;
+        font-weight: 700 !important;
+        color: #171A1FFF !important;
+        top: -25px !important;
+    }
+    .input-group {
+        position: relative;
+    }
+
+    .input-group .form-control {
+        padding-right: 2.5rem; /* Tạo không gian cho icon bên phải */
+    }
+
+    .input-group #togglePassword {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 10;
+    }
+
+
+</style>
+<div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    <div id="particles-js"><canvas class="particles-js-canvas-el" width="3038" height="522" style="width: 100%; height: 100%;"></canvas></div>
+
+    <div class="page-content vertical-align-middle">
+        <div class="panel">
+            <div class="panel-body pb-20">
+                <div class="brand">
+                    <a href="/">
+                        
+                        <img class="brand-img" th:src="@{../Content/Images/UIC-logo.png}" alt="...">
+                    </a>
+                    <a href="/" style="">
+                        <h2 class="brand-text font-size-22 font-weight-bold">HỆ THỐNG KÝ SỐ</h2>
+                    </a>
+                </div>
+<form action="/" id="login-form" method="post" novalidate="novalidate" class="fv-form fv-form-bootstrap4"><button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button><input name="__RequestVerificationToken" type="hidden" value="Y0WK_5aH3xAQ8JIF0omWLmzBSIAJpXDd_ecDYwtKJFBUFYTR0QzLr00OW7k44tPrCUKlwfXsTxulLixhM_OJCMEDqlc1"><div class="validation-summary-errors text-danger"><ul><li style="display:none"></li>
+</ul></div>                    <input type="hidden" name="returnUrl" value="/Account/Info">
+                    <div class="form-group form-material floating has-success" data-plugin="formMaterial">
+                        <input type="text" class="form-control is-valid" id="inputEmail" name="Email" placeholder="Nhập email" maxlength="32" data-fv-field="Email">
+                        <label class="floating-label label-login" for="inputEmail">Email</label>
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                    <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="Email" data-fv-result="VALID" style="display: none;">Email không được để trống</small><small class="invalid-feedback" data-fv-validator="regexp" data-fv-for="Email" data-fv-result="VALID" style="display: none;">Địa chỉ Email không hợp lệ. Vui lòng nhập địa chỉ Email hợp lệ</small><small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="Email" data-fv-result="VALID" style="display: none;">Vui lòng nhập ít hơn 33 ký tự</small></div>
+                    <div class="form-group form-material floating has-success" data-plugin="formMaterial">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div class="input-group">
+                            <input type="password" class="form-control is-valid" id="inputPassword" name="Password" placeholder="Mật khẩu" maxlength="30" data-fv-field="Password">
+                            <i class="fa fa-eye" id="togglePassword" onclick="togglePasswordVisibility('inputPassword')"></i>
+                        </div>
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                    <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="Password" data-fv-result="VALID" style="display: none;">Mật khẩu không được để trống</small><small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="Password" data-fv-result="VALID" style="display: none;">Vui lòng nhập ít hơn 31 ký tự</small></div>
+                    <div class="form-group clearfix">
+                        <a class="float-right" href="/Account/ForgotPassword">Quên mật khẩu?</a>
+                    </div>
+                    <span class="error"></span>
+                    <button type="submit" class="btn btn-primary btn-block submit-btn mb-20" id="submit-login">Đăng nhập</button>
+</form>                <br>
+            </div>
+        </div>
+
+        <footer class="page-copyright">
+            <p>UIC © 2024 .All RIGHT RESERVED</p>
+            <div class="social">
+            </div>
+        </footer>
+    </div>
+</div>
+
+    <!-- End Page -->
+    <!-- Core  -->
+    <script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+    <script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+    <script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+    <script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+    <script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+    <script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+    <script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+    <script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+    <script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+    <script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+    <script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+
+	<script th:src="@{../Content/js/Component.js}"></script>
+	<script th:src="@{../Content/js/Plugin.js}"></script>
+	<script th:src="@{../Content/js/Base.js}"></script>
+	<script th:src="@{../Content/js/Config.js}"></script>
+
+	<script th:src="@{../Content/js/GridMenu.js}"></script>
+	<script th:src="@{../Content/js/Menubar.js}"></script>
+	<script th:src="@{../Content/js/PageAside.js}"></script>
+	<script th:src="@{../Content/js/Sidebar.js}"></script>
+	<script th:src="@{../Content/js/matchHeight.js}"></script>
+
+	<script th:src="@{../Content/js/colors.js}"></script>
+
+	<script th:src="@{../Content/js/Site.js}"></script>
+
+	<script sth:src="@{../Content/js/toastr.js}"></script>
+	<script sth:src="@{../Content/js/material.js}"></script>
+
+    
+    <script th:src="@{../Content/Vendor/formvalidation/formValidation.js}"></script>
+    <script th:src="@{../Content/Vendor/formvalidation/framework/bootstrap4.js}"></script>
+    <script th:src="@{../Content/Vendor/formvalidation/language/vi_VN.js}"></script>
+    <script th:src="@{../Content/Vendor/particles.js-master/particles.min.js}"></script>
+    <script th:src="@{../Content/js/animated-background.js}"></script>
+    <script th:src="@{../Content/js/login.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('body').addClass('page-login-v3');
+        });
+    </script>
+<script>
+    function togglePasswordVisibility(id) {
+        const input = document.getElementById(id);
+        const icon = document.getElementById('togglePassword');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+}
+
+</script>
+
+
+
+    <script>
+        (function (document, window, $) {
+            'use strict';
+
+            var Site = window.Site;
+            $(document).ready(function () {
+                Site.run();
+            });
+        })(document, window, jQuery);
+    </script>
+
+    <script>
+    </script>
+
+
+<div id="jdgdddaedacafbdgifhcjchiddfbcdhb" style="color-scheme: initial; forced-color-adjust: initial; mask: initial; math-depth: initial; position: relative; position-anchor: initial; appearance: initial; color: initial; font: initial; font-palette: initial; font-synthesis: initial; inset-area: initial; text-orientation: initial; text-rendering: initial; text-spacing-trim: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; anchor-name: initial; animation-composition: initial; animation: initial; app-region: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; field-sizing: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask-type: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position-try: initial; position-visibility: initial; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; white-space: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-class: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"></div></body></html>html>

@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this is only for responsive design to zoom 100%-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="og:title" property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="">
+
+    <title>Quản lý tài khoản</title>
+
+    <link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+    
+
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist/chartist.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/toastr/toastr.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/toastr.css}" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet">
+	<link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet">
+	<link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet">
+	
+	<!--[if lt IE 9]>
+	    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lt IE 10]>
+	    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+	    <script src="../../global/vendor/respond/respond.min.js"></script>
+	    <![endif]-->
+	<!-- Scripts -->
+	
+	<script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+	<script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>     
+    <script>
+        Breakpoints();
+    </script>
+    <style>
+        .css-menubar .page, .css-menubar .site-footer {
+            margin-left: 0px !important;
+        }
+
+        .modal-info .modal-body {
+            padding: 20px !important;
+        }
+
+        div[role='log'] {
+            display: none;
+        }
+
+        #popupMain .modal-header {
+            background-image: url("../Content/Images/icons/warning.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 165px;
+        }
+
+        .site-menu-item.active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .loader-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(245,244,245,0.75);
+            display: flex;
+            align-items: center;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+
+        .loader-message {
+            position: absolute;
+            top: calc(50% + 35px);
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .loader-container-inline {
+            margin-top: 1.0em;
+            display: none;
+        }
+
+            .loader-container-inline .loader {
+                width: .75em;
+                height: .75em;
+            }
+            #number_notif{
+                display: none;
+            }
+        .unselectable {
+            pointer-events: none;
+            opacity: 0.5; /* Optional: to visually indicate that the element is disabled */
+        }
+    </style>
+</head>
+<body class="animsition site-navbar-small dashboard mm-wrapper site-menubar-fold" style="animation-duration: 800ms; opacity: 1;">
+    <input id="mesg_type" type="hidden">
+    <input id="mesg_value" type="hidden">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
+                <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="">
+                <img class="navbar-brand-logo" style="margin-left: -8px" th:src="@{../Content/Images/Shortcut.ico}" title="UIC-Kyso">
+                <span class="navbar-brand-text hidden-xs-down"> UIC - KÝ SỐ</span>
+            </div>
+        </div>
+        <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+                <!-- Navbar Toolbar -->
+                <ul class="nav navbar-toolbar">
+                    <li class="nav-item hidden-float hidden-md-up" id="toggleMenubar">
+                        <a class="nav-link" data-toggle="menubar" href="#" role="button">
+                            <i class="icon hamburger hamburger-arrow-left">
+                                <span class="sr-only">Toggle menubar</span>
+                                <span class="hamburger-bar"></span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Navbar Toolbar -->
+                <!-- Navbar Toolbar Right -->
+                <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                    <li class="nav-item dropdown nav-account">
+                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
+                            <small style="font-weight:500;text-transform:uppercase;">Dương Văn Chiến</small>
+                            <span class="avatar avatar-online" style="width:30px;height:30px;overflow:hidden;">
+                                    <img id="avatar-img" th:src="@{../Content/Images/avatar.jpg}">
+                            </span>
+                            <span></span>
+                        </a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="/Account/Info" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Thông tin tài khoản</a>                            
+                            <div class="dropdown-divider" role="presentation"></div>
+<form action="/Account/LogOut" method="post"><input name="__RequestVerificationToken" type="hidden" value="AK-AGkG_Ol0sudlAKGVU5JwIWXBE9ywfhRt3v44Oi977Fj7w7zqu95Fr3x3_SbK7P2GdQh5g8WgmAKbKdyay1r59rrc1">                                <button class="dropdown-item" type="submit" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Đăng xuất</button>
+</form>                        </div>
+                    </li>                    
+                </ul>
+                <!-- End Navbar Toolbar Right -->
+            </div>            
+            <!-- End Navbar Collapse -->
+            <!-- Site Navbar Seach -->
+            <!-- End Site Navbar Seach -->
+        </div>
+    </nav>
+
+    <div class="site-menubar mm-menu mm-hasnavbar-bottom-1"><div class="mm-navbar mm-navbar-bottom mm-navbar-bottom-1 mm-navbar-size-1"><div class="site-menubar-footer">
+              <a href="/Account/Info" class="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Cấu hình tài khoản">
+                <span class="icon wb-settings" aria-hidden="true"></span>
+              </a>
+              <a href="/Home/Dashboard" data-placement="top" data-toggle="tooltip" data-original-title="Dashboard">
+                <span class="icon md-view-dashboard" aria-hidden="true"></span>
+              </a>
+              <a href="/account/logout" data-placement="top" data-toggle="tooltip" data-original-title="Đăng xuất">
+                <span class="icon wb-power" aria-hidden="true"></span>
+              </a>
+            </div></div><div class="mm-panels scrollable scrollable-inverse scrollable-vertical is-disabled"><div class="mm-panel mm-hasnavbar mm-opened mm-current scrollable-container" id="mm-0" style=""><div class="mm-navbar scrollable-content" style=""><a class="mm-title">Menu</a></div><ul class="site-menu mm-listview scrollable-content" style="">
+                <li class="site-menu-item nav-account">
+                    <a href="/Home/Dashboard">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Dashboard</span>
+                    </a>
+                </li>
+            <li class="site-menu-item nav-signature has-sub">
+                <a class="mm-next" href="#mm-1" data-target="#mm-1"></a><a href="javascript:void(0)">
+                    <i class="site-menu-icon md-border-color" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch Ký số</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Account/Group">
+                        <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                        <span class="site-menu-title">Quản lý tài khoản</span>
+                    </a>
+                </li>
+
+            <li class="site-menu-item nav-group">
+                <a href="/Transactions/WaitingTran">
+                    <i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch chờ xác nhận</span>
+                </a>
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Transactions/GroupIndex">
+                        <i class="site-menu-icon md-time" aria-hidden="true"></i>
+                        <span class="site-menu-title">Lịch sử giao dịch</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item nav-group">
+                    <a href="/SystemConfig/Index">
+                        <i class="site-menu-icon md-settings" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Cài đặt</span>
+                    </a>
+                </li>
+
+        </ul></div><div class="mm-panel mm-hasnavbar mm-hidden scrollable-container" id="mm-1" style=""><div class="mm-navbar scrollable-content" style=""><a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a><a class="mm-title" href="#mm-0">
+                    
+                    Giao dịch Ký số
+                    
+                </a></div><ul class="site-menu-sub mm-listview scrollable-content" style="">
+                    <li class="site-menu-item nav-sign">
+                        <a class="animsition-link" href="/Signature/Index">
+                            <span class="site-menu-title">Ký số</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Verify/Index">
+                            <span class="site-menu-title">Kiểm tra chữ ký</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Signature/InitByPartner">
+                            <span class="site-menu-title">Trình ký</span>
+                        </a>
+                    </li>
+                </ul></div><div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide is-disabled" draggable="false"><div class="scrollable-bar-handle"></div></div></div></div>            
+    <!-- Modal -->
+    <div class="modal fade modal-primary" id="popupMain" aria-hidden="true" aria-labelledby="popupMain" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-simple">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <div class="panel-heading" style="padding: 0px;">
+                            <h3 class="panel-title text-center"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-outline float-center" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+    <!-- Page -->
+    
+
+<link href="/assets/vendor/select2/select2.css" rel="stylesheet">
+
+<link th:href="@{../Content/Vendor/typeahead-js/typeahead.css}" rel="stylesheet">
+<link th:href="@{../Content/Vendor/bootstrap-datepicker/bootstrap-datepicker.css}" rel="stylesheet">
+<link th:href="@{../Content/Vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.css}" rel="stylesheet">
+<link th:href="@{../Content/css/signature.css}" rel="stylesheet">
+<link th:href="@{../Content/css/mailbox.css}" rel="stylesheet">
+<link th:href="@{../Content/css/location.css}" rel="stylesheet">
+<link th:href="@{../Content/css/transaction.css}" rel="stylesheet">
+<link th:href="@{../Content/Vendor/slidepanel/slidePanel.min.css}" rel="stylesheet">
+
+<style>
+    ul {
+        list-style: none;
+        padding: 0px;
+    }
+
+    .pagination li a {
+        height: 40px;
+    }
+
+    .dropdown-toggle:after {
+        display: none !important;
+    }
+
+    .dropdown a {
+        text-decoration: none !important;
+    }
+
+    .tran-type-lbl {
+        display: block;
+        width: 75px;
+        text-align: center;
+        font-size: 9px !important;
+    }
+
+    .tokenfield .token.invalid {
+        border-radius: 0;
+        background: 0 0;
+        border: 1px dotted #f44336;
+        color: #f44336;
+        font-weight: bolder;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(60, 62, 63, 0.11);
+    }
+
+    .badge {
+        color: white;
+    }
+
+    .badge-lg {
+        font-size: 90%;
+        font-weight: 300;
+        padding: 0.35em 1.2em;
+    }
+
+    .table tfoot th, .table thead th {
+        font-weight: 500;
+    }
+
+    .page-content-table .table > thead > tr > th:first-child, .page-content-table .table > tbody > tr > td:first-child {
+        padding-left: .572rem;
+    }
+
+    #mailboxTable thead tr {
+        background-color: #247cf0;
+    }
+
+        #mailboxTable thead tr th {
+            color: white;
+        }
+
+    .page-content-table .table > tbody > tr > td {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    td a {
+        color: #526069;
+        text-decoration: none !important;
+    }
+
+    .app-work .panel-heading {
+        overflow: auto;
+        padding: 20px;
+    }
+
+    .app-work .panel-title,
+    .app-work .panel-search-form {
+        float: left;
+    }
+
+    .app-work .panel-title {
+        font-size: 14px;
+        font-weight: 100;
+        padding: 29px 10px;
+    }
+
+    .app-work .panel-search-form {
+        padding: 19px;
+        margin-left: 20px;
+    }
+
+        .app-work .panel-search-form .form-control {
+            border: 0;
+            border-radius: 17px;
+            width: 280px;
+            opacity: 0.6;
+            background-color: #f8fafb;
+        }
+
+            .app-work .panel-search-form .form-control:hover, .app-work .panel-search-form .form-control:focus {
+                background-color: #f5f5f5;
+            }
+
+        .app-work .panel-search-form .icon {
+            color: #aeb5b9;
+            font-size: 16px;
+            position: absolute;
+            top: 11px;
+            left: 107%;
+            transition: all .4s;
+        }
+
+            .app-work .panel-search-form .icon:hover {
+                color: #3949ab;
+            }
+
+    .app-work .panel-info {
+        float: right;
+        padding: 11px 0;
+        margin: 0;
+    }
+
+        .app-work .panel-info li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 50px;
+            text-align: center;
+        }
+
+            .app-work .panel-info li:last-child {
+                margin: 0;
+            }
+
+            .app-work .panel-info li .num {
+                font-size: 24px;
+                line-height: 1.2em;
+            }
+
+            .app-work .panel-info li p {
+                margin: 0;
+            }
+
+            .required{
+                color:red
+            }
+    /* Ensure modal is above the backdrop */
+    div#create-lock-modal {
+        position: fixed;
+    }
+    .gancts-text-tab {
+        top: 10px;
+        font-size: 17px;
+        line-height: 28px;
+        font-weight: 700;
+        color: #FFFFFFFF; /* white */
+        padding: 10px;
+    }
+    .info-text {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 700;
+        color: #323842FF; /* neutral-700 */
+    }
+    .modal-title-text {
+        line-height: 28px;
+        font-weight: 700;
+        color: #323842FF; /* neutral-700 */
+    }
+    .modal-header {
+        background: #F3F4F6FF;
+    }
+    i.icon {
+        color: #247cf0;
+    }
+</style>
+<!-- Page -->
+<div class="page page-user slidePanel-close app-work">
+    <div class="page-header">
+        <h1 class="page-title">Quản lý tài khoản</h1>
+        
+        
+        
+        
+        
+        
+    </div>
+    <div class="page-content app-mailbox">
+        <div class="panel">
+            <div class="panel-heading">
+            </div>
+            <div class="panel-body">
+                <div class="row" style="padding: 11px 0px;">
+                    
+                    <div class="col-md-10">
+                        
+                        <input type="text" maxlength="255" class="form-control" id="inputSearch" name="search" placeholder="Nhập thông tin tìm kiếm" onkeydown="handleKeyDown(event)" style=" width: 25%;">
+                    </div>
+
+                    <div class="col-md-2" style="padding: 0px 1%; margin: 0;">
+                        <button class="btn btn-primary" style=" float: right; " data-target="#create-admin-modal" data-toggle="modal" data-backdrop="static" role="menuitem"><span data-toggle="tooltip" data-placement="top" data-original-title="Thêm mới tài khoản"> + Thêm mới</span></button>
+                    </div>
+                </div>
+                <div class="nav-tabs-horizontal nav-tabs-animate" data-plugin="tabs">
+                    <!-- Right order by Dropdown menu -->
+                    <div class="tab-content">
+                        <div class="tab-pane animation-fade active page-content-table" id="all_contacts" role="tabpanel">
+                            <table id="mailboxTable" class="table table-bordered" data-plugin="animateList" data-animate="fade" data-child="tr">
+                                <thead class="hidden-sm-down">
+                                <tr>
+                                    <th class="cell-30 center-align">STT</th>
+                                    <th class="cell-100 tran-file-type responsive-hide center-align">Email</th>
+                                    <th class="cell-100 hidden-sm-down center-align">Họ và tên</th>
+                                    <th class="cell-100 hidden-sm-down center-align">Số điện thoại</th>
+                                    <th class="hidden-md-down cell-100 center-align">Vai trò</th>
+                                    <th class="hidden-md-down cell-100 center-align">Cập nhật lần cuối</th>
+                                    <th class="cell-100 hidden-sm-down center-align">Trạng thái</th>
+                                    <th colspan="3" class="cell-180 responsive-hide center-align">Thao tác</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">1</td>
+                                        <td>
+
+
+                                            <div class="title" title="ngoquangdat@gmail.com">
+                                                ngoquangdat@gma...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Ngo Quang Dat
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0948408874
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-green-600 badge badge-round badge-lg hidden-sm-down">
+                                                        User ký số
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+23/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=e3aed170-a14a-437f-850c-bc5065efd0e7" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="e3aed170-a14a-437f-850c-bc5065efd0e7" data-user-email="ngoquangdat@gmail.com" data-user-fullname="Ngo Quang Dat" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="e3aed170-a14a-437f-850c-bc5065efd0e7" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_2" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">2</td>
+                                        <td>
+
+
+                                            <div class="title" title="wwtest92@gmail.com">
+                                                wwtest92@gmail....
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                nguyen van test...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0123456789
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-green-600 badge badge-round badge-lg hidden-sm-down">
+                                                        User ký số
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+15/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=8222e223-4d25-49c0-8945-5e0386c2ebc8" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="8222e223-4d25-49c0-8945-5e0386c2ebc8" data-user-email="wwtest92@gmail.com" data-user-fullname="nguyen van test1" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="8222e223-4d25-49c0-8945-5e0386c2ebc8" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_3" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">3</td>
+                                        <td>
+
+
+                                            <div class="title" title="chiendv@uicvn.com">
+                                                chiendv@uicvn.c...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Dương Văn Chiến
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0962145390
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Quản trị hệ thống
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+12/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td></td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="23ce182e-8951-46c8-bf06-62ecfec328c1" data-user-email="chiendv@uicvn.com" data-user-fullname="Dương Văn Chiến" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td></td>
+
+                                    </tr>
+                                    <tr id="mid_4" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">4</td>
+                                        <td>
+
+
+                                            <div class="title" title="phuongntm@uicvn.com">
+                                                phuongntm@uicvn...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Nguyen Thi Minh...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0846686660
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-green-600 badge badge-round badge-lg hidden-sm-down">
+                                                        User ký số
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+09/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=61cdfbd0-8fec-4a45-ae1f-4b43f8c0608b" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="61cdfbd0-8fec-4a45-ae1f-4b43f8c0608b" data-user-email="phuongntm@uicvn.com" data-user-fullname="Nguyen Thi Minh Phuong" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="61cdfbd0-8fec-4a45-ae1f-4b43f8c0608b" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_5" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">5</td>
+                                        <td>
+
+
+                                            <div class="title" title="chamntm@uicvn.com">
+                                                chamntm@uicvn.c...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Nguyen Thi Minh...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0375624415
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Quản trị hệ thống
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+09/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=184720ce-025c-4a16-9bcd-4a8f49676061" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="184720ce-025c-4a16-9bcd-4a8f49676061" data-user-email="chamntm@uicvn.com" data-user-fullname="Nguyen Thi Minh Cham" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="184720ce-025c-4a16-9bcd-4a8f49676061" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_6" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">6</td>
+                                        <td>
+
+
+                                            <div class="title" title="maibp@uicvn.com">
+                                                maibp@uicvn.com
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Bui Phuong Mai
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0936851333
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Quản trị hệ thống
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+09/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=425f2297-1cd2-4d27-8bd4-76a15f2e36ef" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="425f2297-1cd2-4d27-8bd4-76a15f2e36ef" data-user-email="maibp@uicvn.com" data-user-fullname="Bui Phuong Mai" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="425f2297-1cd2-4d27-8bd4-76a15f2e36ef" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_7" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">7</td>
+                                        <td>
+
+
+                                            <div class="title" title="vnpt.fcm@gmail.com">
+                                                vnpt.fcm@gmail....
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Nguyen Thi Sim
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0943915046
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-green-600 badge badge-round badge-lg hidden-sm-down">
+                                                        User ký số
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+09/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=ddee1697-16e9-437f-8ed0-c87dd2c18f82" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="ddee1697-16e9-437f-8ed0-c87dd2c18f82" data-user-email="vnpt.fcm@gmail.com" data-user-fullname="Nguyen Thi Sim" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="ddee1697-16e9-437f-8ed0-c87dd2c18f82" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_8" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">8</td>
+                                        <td>
+
+
+                                            <div class="title" title="superadmin@vnptca.vn">
+                                                superadmin@vnpt...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                Ngo Quang Dat
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                0356407845
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Quản trị hệ thống
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+11/05/2021                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Đang hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=034bae5c-bb16-4f93-9fff-fa1b93b3ef0a" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn-gancts" data-user-id="034bae5c-bb16-4f93-9fff-fa1b93b3ef0a" data-user-email="superadmin@vnptca.vn" data-user-fullname="Ngo Quang Dat" data-toggle="modal" data-target="#create-gancts-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Gán tài khoản với CTS"></i>
+                                                    </button>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="034bae5c-bb16-4f93-9fff-fa1b93b3ef0a" data-toggle="modal" data-target="#create-lock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-lock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                    <tr id="mid_9" data-url="panel.tpl" data-toggle="slidePanel">
+                                        <td class="cell-60 center-align">9</td>
+                                        <td>
+
+
+                                            <div class="title" title="wwtest921@gmail.com">
+                                                wwtest921@gmail...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                nguyen van test...
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+                                                01234567891
+                                            </div>
+                                        </td>
+
+                                        <td class="cell-130 tran-file-type responsive-hide center-align">
+                                            <div class="identity">
+                                                    <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Quản trị hệ thống
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="title">
+16/07/2024                                            </div>
+                                        </td>
+                                        <td class="cell-150 hidden-sm-down">
+                                            <div class="identity">
+                                                    <span class="bg-red-600 badge badge-round badge-lg hidden-sm-down">
+                                                        Dừng hoạt động
+                                                    </span>
+                                            </div>
+                                        </td>
+
+                                            <td class="cell-20 responsive-hide center-align">
+                                                <a href="/Account/Info?accountID=f1e51682-0412-44fd-be66-e45636a13561" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Thông tin chi tiết tài khoản">
+                                                    <i class="icon fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                            </td>
+                                            <td class="cell-20 responsive-hide center-align">
+                                                    <button class="btn btn-online open-modal-btn" data-user-id="f1e51682-0412-44fd-be66-e45636a13561" data-toggle="modal" data-target="#create-unlock-modal" data-backdrop="static" data-keyboard="false" role="button" style=" background: transparent; ">
+                                                        <i class="icon wb-unlock" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Mở khóa tài khoản"></i>
+                                                    </button>
+
+                                            </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="Paging" class="paging text-center">
+
+                                <span style=" float: left; padding: 11px 0px; ">Tổng số: 9 kết quả</span>
+                                <ul class="pagination pagination-no-border" style="float:right;">
+                                                                                <li class="active page-item">
+                                                <a class="page-link disabled" href="javascript:void(0)">
+                                                    1 <span class="sr-only">(current)</span>
+                                                </a>
+                                            </li>
+                                                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="create-admin-modal" aria-hidden="false" aria-labelledby="create-admin-modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+            <div id="create-admin-loader" class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span id="create-admin-loader-message" class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title modal-title-text" id="">Thêm mới tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div id="err-admin-sumary" class="err-sumary">
+                            <span id="create-admin-error" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <form id="create-admin-form" method="post" action="" novalidate="novalidate" class="fv-form fv-form-bootstrap4"><button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+                    <div class="row">
+                        <div class="col-xl-6 form-group">
+                            <input name="__RequestVerificationToken" type="hidden" value="rrhs_EonUAng4tg8S5mCNrCh6Y52a-pCH0uyMHXvc25bJ1n56TBd5V_kkQTMzxPk1phFS_mh1ALUwfi4HJfI5-0UR_s1">
+
+                            <label>Họ và tên <span class="required">*</span> </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="FullName" placeholder="Nhập Họ và tên" required="" maxlength="255" data-fv-field="FullName">
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="FullName" data-fv-result="NOT_VALIDATED" style="display: none;">Họ và tên là trường bắt buộc</small><small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="FullName" data-fv-result="NOT_VALIDATED" style="display: none;">Họ và tên quá dài. Vui lòng thay thế bằng từ viết tắt (&lt;= 255 ký tự)</small></div>
+                        <div class="col-xl-6 form-group">
+                            <label>Giới tính <span class="required">*</span></label>
+                            <div class="input-group">
+                                <select class="form-control" id="sex" name="Sex" required="" data-fv-field="Sex">
+                                    <option value="">Chọn giới tính</option>
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="Sex" data-fv-result="NOT_VALIDATED" style="display: none;">Giới tính là trường bắt buộc</small></div>
+                        <div class="col-xl-6 form-group">
+                            <label>Email <span class="required">*</span> </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="Email" placeholder="Nhập Email" required="" maxlength="32" data-fv-field="Email">
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="Email" data-fv-result="NOT_VALIDATED" style="display: none;">Email là trường bắt buộc</small><small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="Email" data-fv-result="NOT_VALIDATED" style="display: none;">Email quá dài. Vui lòng sử dụng một địa chỉ ngắn hơn (&lt;= 32 ký tự)</small><small class="invalid-feedback" data-fv-validator="regexp" data-fv-for="Email" data-fv-result="NOT_VALIDATED" style="display: none;">Email không đúng định dạng!</small></div>
+                        <div class="col-xl-6 form-group">
+                            <label>Số điện thoại<span class="required">*</span> </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="PhoneNumber" placeholder="Nhập Số điện thoại" required="" maxlength="14" minlength="10" data-fv-field="PhoneNumber">
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="PhoneNumber" data-fv-result="NOT_VALIDATED" style="display: none;">Số điện thoại là trường bắt buộc</small><small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="PhoneNumber" data-fv-result="NOT_VALIDATED" style="display: none;">Số điện thoại quá dài. Vui lòng thay thế bằng từ viết tắt (&lt;= 14 ký tự)</small></div>
+                        <div class="col-xl-6 form-group">
+                            <label>Mã nhân viên </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="UserName" placeholder="Nhập Mã nhân viên" maxlength="255" data-fv-field="UserName">
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="UserName" data-fv-result="NOT_VALIDATED" style="display: none;">Mã nhân viên quá dài. Vui lòng thay thế bằng từ viết tắt (&lt;= 255 ký tự)</small></div>
+                        <div class="col-xl-6 form-group">
+                            <label>Vai trò<span class="required">*</span> </label>
+                            <select class="form-control" id="AccountType" name="AccountType" required="" data-fv-field="AccountType">
+                                <option value="">Chọn vai trò</option>
+                                <option value="1">Quản trị hệ thống</option>
+                                <option value="2">User ký số</option>
+                            </select>
+                        <small class="invalid-feedback" data-fv-validator="notEmpty" data-fv-for="AccountType" data-fv-result="NOT_VALIDATED" style="display: none;">Vai trò là trường bắt buộc</small></div>
+
+                        <div class="col-xl-6 form-group">
+                            <label>Chức danh </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="Title" placeholder="Nhập Chức danh" maxlength="255" data-fv-field="Title">
+                            </div>
+                        <small class="invalid-feedback" data-fv-validator="stringLength" data-fv-for="Title" data-fv-result="NOT_VALIDATED" style="display: none;">Chức danh quá dài. Vui lòng thay thế bằng từ viết tắt (&lt;= 255 ký tự)</small></div>
+                        <div class="col-xl-12 form-group">
+                            <div style="display: flex; justify-content: center; gap: 10px;">
+                                <button class="btn btn-outline-info" type="button" id="create-admin-cancel" onclick="createCancel()">Hủy</button>
+                                <button class="btn btn-primary" type="button" id="create-admin-confirm" onclick="createAdmin()">Thêm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<!-- Modal -->
+<div class="modal fade" id="create-lock-modal" aria-hidden="true" aria-labelledby="create-lock-modal-label" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+            <div class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title modal-title-text" id="create-lock-modal-label">Xác nhận</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="err-sumary">
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+<form action="/Account/QuickAction" method="post"><input name="__RequestVerificationToken" type="hidden" value="nDbCsAc1qMdRllVEyPmgdHATnnCqOeODDv0cCflgYuwL9uLT41EFCjM2xmrAy3Grl9QDyMh3m5maIiySqocNG04PKV01">                    <input type="hidden" name="Action" value="Active">
+                    <input type="hidden" id="modal-user-id" name="Id" value="">
+                    <input type="hidden" name="Status" value="3">
+                    <div class="row">
+                        <div class="col-xl-12 form-group">
+                            Bạn có chắc chắn muốn dừng hoạt động tài khoản này?
+                        </div>
+                        <div class="col-xl-12 form-group">
+                            <div style="display: flex; justify-content: center; gap: 10px;">
+                                <button class="btn btn-outline-info" type="button" data-dismiss="modal">Hủy</button>
+                                <button class="btn btn-primary" type="submit" role="button">Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+</form>            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="create-unlock-modal" aria-hidden="true" aria-labelledby="create-unlock-modal-label" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+            <div class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title modal-title-text" id="create-unlock-modal-label">Xác nhận</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="err-sumary">
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+<form action="/Account/QuickAction" method="post"><input name="__RequestVerificationToken" type="hidden" value="Ffwzt5UGUSYU2WgjZOeXxx2MYnsetmP0SnW9sW70LUHYrkgUSg18RJ9HF1d993UZjwSetEQX5ZTwNeE6V8aUJQ0bAt41">                    <input type="hidden" name="Action" value="Active">
+                    <input type="hidden" id="modal-user-id-unlock" name="Id" value="">
+                    <input type="hidden" name="Status" value="1">
+                    <div class="row">
+                        <div class="col-xl-12 form-group">
+                            Bạn có chắc chắn muốn khôi phục hoạt động tài khoản này?
+                        </div>
+                        <div class="col-xl-12 form-group">
+                            <div style="display: flex; justify-content: center; gap: 10px;">
+                                <button class="btn btn-outline-info" type="button" data-dismiss="modal">Hủy</button>
+                                <button class="btn btn-primary" type="submit" role="button">Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+</form>            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="create-gancts-modal" aria-hidden="true" aria-labelledby="create-gancts-modal-label" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-simple modal-lg">
+        <div class="modal-content">
+            <div class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title modal-title-text" id="create-gancts-modal-label">Gán tài khoản với Chứng thư số</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="err-sumary">
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+<form action="/Account/QuickAction" method="post"><input name="__RequestVerificationToken" type="hidden" value="iPEuxqowL0xb8x-yEjGAKKmkKE7c70qSMc2g3MVixDhpgd49G0-l8bs15BI8PcVVwuyjvd5M8b7gDDEjQ7JcO52YbIU1">                    <input type="hidden" name="Action" value="GanCTS">
+                    <input type="hidden" id="modal-user-id-gancts" name="Id" value="">
+                    <div class="row" style=" padding: 1% 5%; ">
+                        <div class="col-xl-5" style=" border: 1px gray solid; ">
+                            <div class="row btn-primary center-align" style="height: 50px;">
+                                <div class="col-xl-12 form-group">
+                                    <label class="modal-title gancts-text-tab">Thông tin tài khoản</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xl-12 form-group">
+                                    <label class="info-text">Họ và tên</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="modal-user-fullname-gancts" name="FullName" value="" readonly="true">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 form-group">
+                                    <label class="info-text">Email </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="modal-user-email-gancts" name="Email" value="" readonly="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <br> <br>
+                        </div>
+                        <div class="col-xl-2 center-align">
+                            <i class="fa fa-arrow-right" aria-hidden="true" style="padding-top: 100%;"></i>
+                        </div>
+                        <div class="col-xl-5" style=" border: 1px gray solid; ">
+                            <div class="row btn-primary center-align" style="height: 50px;">
+                                <div class="col-xl-12 form-group">
+                                    <label class="modal-title gancts-text-tab">Thông tin chứng thư số</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xl-12 form-group">
+                                    <label class="info-text">Chứng thư số</label>
+                                    <div class="input-group">
+                                        <input type="text" maxlength="255" class="form-control" id="WorkerName" name="WorkerName" value="" placeholder="Nhập Worker Signer">
+                                    </div>
+                                    <br>
+                                    <u style="color: #3e8ef7"><i>Nhập hoặc copy Worker Signer của chứng thư số cần gán cho tài khoản từ Sign Server</i></u>
+                                    
+                                    
+                                </div>
+                            </div>
+                            <br> <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xl-12 form-group">
+                            <div style="display: flex; justify-content: center; gap: 10px;">
+                                <button class="btn btn-outline-info" type="button" data-dismiss="modal">Hủy</button>
+                                <button class="btn btn-primary" type="submit" role="button">Lưu</button>
+                            </div>
+                        </div>
+                    </div>
+</form>            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Page -->
+	<!-- Footer -->
+	<!-- Core  -->
+	<script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+	<script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+	<script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+	<script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+	<script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+	<script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+	<script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+	<script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+	<script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+	<script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+	<script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+	<script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+	<script th:src="@{../Content/js/moment.js}"></script>
+
+    <script th:src="@{../Content/js/Component.js}"></script>
+	<script th:src="@{../Content/js/Plugin.js}"></script>
+	<script th:src="@{../Content/js/Base.js}"></script>
+	<script th:src="@{../Content/js/Config.js}"></script>
+
+    <script th:src="@{../Content/js/GridMenu.js}"></script>
+	<script th:src="@{../Content/js/Menubar.js}"></script>
+	<script th:src="@{../Content/js/PageAside.js}"></script>
+	<script th:src="@{../Content/js/Sidebar.js}"></script>
+	<script th:src="@{../Content/js/matchHeight.js}"></script>
+
+    <script th:src="@{../Content/js/colors.js}"></script>
+
+	<script th:src="@{../Content/js/Site.js}"></script>
+
+	<script th:src="@{../Content/js/toastr.js}"></script>
+	
+	<script th:src="@{../assets/vendor/select2/select2.full.min.js}"></script>
+	<script th:src="@{../assets/js/Plugin/select2.js}"></script>
+	<script th:src="@{../Content/Vendor/formvalidation/formValidation.js}"></script>
+    <script th:src="@{../Content/Vendor/formvalidation/framework/bootstrap4.js}"></script>
+    <script th:src="@{../Content/Vendor/formvalidation/language/vi_VN.js}"></script>
+    <script th:src="@{../Content/Vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js}"></script>
+    <script th:src="@{../Content/Vendor/typeahead-js/bloodhound.min.js}"></script>
+    <script th:src="@{../Content/Vendor/typeahead-js/typeahead.jquery.min.js}"></script>
+    <script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.min.js}"></script>
+    <script th:src="@{../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.vi.min.js}"></script>
+    <script th:src="@{../Content/js/slidepanel.js}"></script>
+    <script th:src="@{../Content/pages/account/group.js}"></script>
+    <script>
+    $(document).ready(function () {
+        $('#inputSearch').keyup(function (e) {
+            if (e.keyCode == 13) {
+                filter();
+            }
+        });
+    });
+
+    function filter() {
+        var status = $("#userStatus").val();
+        var keyWord = $("#inputSearch").val();
+        var filter = [];
+        var filterString = "";
+        if (status != 0) {
+            filter.push("status=" + status);
+        }
+        if (keyWord != "") {
+            filter.push("keyword=" + keyWord);
+        }
+        if (filter.length > 0) {
+            filterString = "?" + filter.join("&");
+        }
+        window.location.href = "/Account/Group/" + filterString;
+    }
+    function paging(page) {
+        var currentPage = 1;
+        var url = window.location.href;
+        if (url.indexOf("page=" + currentPage) > 0) {
+            url = url.replace("page=" + currentPage, "page=" + page);
+        } else {
+            if (url.indexOf("?") > 0) {
+                url = url + "&page=" + page;
+            } else {
+                url = url + "?page=" + page;
+            }
+        }
+        window.location.href = url;
+    }
+    function handleKeyDown(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default action (submission)
+            filter();
+        }
+    }
+
+    function createAdmin() {
+        $('#create-admin-error').text('');
+        $('#err-admin-sumary').hide();
+
+        let form = $('#create-admin-form');
+        let formValidation = form.data('formValidation');
+        // Kiểm tra xem formValidation đã được khởi tạo hay chưa
+        if (!formValidation) {
+            console.error('formValidation chưa được khởi tạo.');
+            return false;
+        }
+
+        // Validate the form
+        formValidation.validate();
+
+        // Check if the form is valid
+        if (!formValidation.isValid()) {
+            return false;
+        }
+
+        let formData = new FormData(form[0]);
+
+        $.ajax({
+            url: '/Account/NewAccount', // Ensure this URL matches your controller action
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('#create-admin-loader').css('display', 'flex');
+                $('#err-admin-sumary').hide();
+            },
+            success: function (result) {
+                $('#create-admin-loader').css('display', 'none');
+
+                if (result === "") {
+                    window.location.replace("/Account/Login/?ReturnUrl=/Account/Group");
+                } else if (result.ResponseCode !== 1) {
+                    // $('#create-admin-error').text('* ' + result.Message);
+                    // $('#err-admin-sumary').show();
+                    showMessage(result.Message, 'error');
+                } else {
+                    showMessage('Thêm mới tài khoản thành công!', 'info');
+                    $('#create-admin-modal').modal('hide');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500); // Reload after a short delay to ensure modal is fully hidden
+                }
+            },
+            xhr: function () {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) {
+                    // You can add progress handling here if needed
+                }
+                return myXhr;
+            },
+            error: function () {
+                $('#create-admin-loader').css('display', 'none');
+                showMessage('Lỗi truy vấn');
+            }
+        });
+    }
+
+    function createCancel(){
+        $('#create-admin-modal').modal('hide');
+        document.getElementById('create-admin-form').reset();
+    }
+    function showMessage(mesg, type) {
+        toastr.options.closeButton = true;
+        toastr.options.timeOut = 10000;
+        toastr.options.extendedTimeOut = 100;
+        toastr.options.progressBar = true;
+        switch (type) {
+            case 'info':
+                toastr.info(mesg, 'THÔNG BÁO');
+                break;
+            case 'error':
+                toastr.error(mesg, 'LỖI');
+                break;
+            case 'warning':
+                toastr.warning(mesg, 'CẢNH BÁO');
+
+                break;
+            default:
+
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('.open-modal-btn').on('click', function () {
+            var userId = $(this).data('user-id');
+            $('#modal-user-id').val(userId);
+            $('#modal-user-id-unlock').val(userId);
+        });
+
+    });
+
+    $('.open-modal-btn-gancts').on('click', function () {
+        var userId = $(this).data('user-id');
+        var userEmail = $(this).data('user-email');
+        var userFullName = $(this).data('user-fullname');
+        $('#modal-user-id-gancts').val(userId);
+        $('#modal-user-email-gancts').val(userEmail);
+        $('#modal-user-fullname-gancts').val(userFullName);
+    });
+</script>
+
+
+
+    
+    <script>
+        (function (global, factory) {
+            if (typeof define === "function" && define.amd) {
+                define('/pages/faq', ['jquery', 'Site'], factory);
+            } else if (typeof exports !== "undefined") {
+                factory(require('jquery'), require('Site'));
+            } else {
+                var mod = {
+                    exports: {}
+                };
+                factory(global.jQuery, global.Site);
+                global.pagesFaq = mod.exports;
+            }
+        })(this, function (_jquery, _Site) {
+            'use strict';
+
+            var _jquery2 = babelHelpers.interopRequireDefault(_jquery);
+
+            (0, _jquery2.default)(document).ready(function () {
+                (0, _Site.run)();
+
+                if ((0, _jquery2.default)('.faq-list').length) {
+                    (0, _jquery2.default)('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        (0, _jquery2.default)(e.target).addClass('active').siblings().removeClass('active');
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function showMessage(mesg, type) {
+            toastr.options.closeButton = true;
+            toastr.options.timeOut = 10000;
+            toastr.options.extendedTimeOut = 100;
+            toastr.options.progressBar = true;
+            switch (type) {
+                case 'info':
+                    toastr.info(mesg, 'THÔNG BÁO');
+                    break;
+                case 'error':
+                    toastr.error(mesg, 'LỖI');
+                    break;
+                case 'warning':
+                    toastr.warning(mesg, 'CẢNH BÁO');
+
+                    break;
+                default:
+
+            }
+        }
+        $(document).ready(function () {
+            //loadProfileImage();
+            var mesgVal = $('#mesg_value').val();
+            var mesgType = $('#mesg_type').val();
+            if (mesgVal != '') {
+                showMessage(mesgVal, mesgType);
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message=") - 1);
+                window.history.pushState({}, document.title, url);
+
+                if (mesgType.startsWith("modal")) {
+                    showModalMain('');
+                    $("#popupMain").modal({ backdrop: 'static', keyboard: false });
+                }
+            }
+
+            if (mesgType.startsWith('popup')) {
+                $('#' + mesgType).modal('show');
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message") - 1);
+                window.history.pushState({}, document.title, url);
+            }
+
+        });
+        function showModalMain(msgType) {
+            var type = "";
+            if (msgType.endsWith("warning")) { type = "warning"; }
+            if (msgType.endsWith("error")) { type = "error"; }
+            if (msgType.endsWith("success")) { type = "success"; }
+            $("#popupMain .modal-header").css("background-image", "url('../Content/Images/icons/" + type + ".png')");
+        }        
+    </script>
+
+
+
+<div id="aebafhjacacefagdbbfebjjcjbdibfeb" style="color-scheme: initial; forced-color-adjust: initial; mask: initial; math-depth: initial; position: relative; position-anchor: initial; appearance: initial; color: initial; font: initial; font-palette: initial; font-synthesis: initial; inset-area: initial; text-orientation: initial; text-rendering: initial; text-spacing-trim: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; anchor-name: initial; animation-composition: initial; animation: initial; app-region: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; field-sizing: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask-type: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position-try: initial; position-visibility: initial; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; white-space: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-class: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"></div></body></html>tml>

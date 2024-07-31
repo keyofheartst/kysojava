@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this is only for responsive design to zoom 100%-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="og:title" property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="">
+
+    <title>Lịch sử giao dịch hệ thống</title>
+    <!-- Stylesheets -->
+	<link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+	
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist/chartist.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/toastr/toastr.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/toastr.css}" rel="stylesheet">
+
+
+    
+    <link th:href="@{../Content/Vendor/bootstrap-datepicker/bootstrap-datepicker.css}" rel="stylesheet">
+    <link th:href="@{../assets/vendor/bootstrap3-editable/css/bootstrap-editable.css}" rel="stylesheet">
+    <link th:href="@{../assets/vendor/select2/select2.css}" rel="stylesheet">
+    <link th:href="@{../Content/css/mailbox.css}" rel="stylesheet">
+    <link th:href="@{../Content/css/location.css}" rel="stylesheet">
+    <link th:href="@{../Content/css/transaction.css}" rel="stylesheet">
+    <link th:href="@{../Content/css/GroupIndex.css}" rel="stylesheet">
+    <style>
+        .app-work .panel-heading {
+            padding: 30px;
+        }
+
+        .badge-lg {
+            font-size: 90%;
+            font-weight: 300;
+            padding: 0.35em 1.2em;
+        }
+
+        .select2 {
+            z-index: 1 !important;
+        }
+    </style>
+
+	<!-- Fonts -->
+	<link th:href="@{../fonts/material-design/material-design.min.css}" rel="stylesheet">
+	<link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet">
+	<link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lt IE 10]>
+	    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+	    <script src="../../global/vendor/respond/respond.min.js"></script>
+	    <![endif]-->
+	<!-- Scripts -->
+	
+	<script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+	<script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>   
+    <script>
+        Breakpoints();
+    </script>
+    <style>
+        .css-menubar .page, .css-menubar .site-footer {
+            margin-left: 0px !important;
+        }
+
+        .modal-info .modal-body {
+            padding: 20px !important;
+        }
+
+        div[role='log'] {
+            display: none;
+        }
+
+        #popupMain .modal-header {
+            background-image: url("../Content/Images/icons/warning.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 165px;
+        }
+
+        .site-menu-item.active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .loader-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(245,244,245,0.75);
+            display: flex;
+            align-items: center;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+
+        .loader-message {
+            position: absolute;
+            top: calc(50% + 35px);
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .loader-container-inline {
+            margin-top: 1.0em;
+            display: none;
+        }
+
+            .loader-container-inline .loader {
+                width: .75em;
+                height: .75em;
+            }
+            #number_notif{
+                display: none;
+            }
+        .unselectable {
+            pointer-events: none;
+            opacity: 0.5; /* Optional: to visually indicate that the element is disabled */
+        }
+    </style>
+</head>
+<body class="animsition site-navbar-small dashboard mm-wrapper site-menubar-fold" style="animation-duration: 800ms; opacity: 1;">
+    <input id="mesg_type" type="hidden">
+    <input id="mesg_value" type="hidden">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
+                <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="">
+                <img class="navbar-brand-logo" style="margin-left: -8px" th:src="@{/Content/Images/Shortcut.ico}" title="UIC-Kyso">
+                <span class="navbar-brand-text hidden-xs-down"> UIC - KÝ SỐ</span>
+            </div>
+        </div>
+        <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+                <!-- Navbar Toolbar -->
+                <ul class="nav navbar-toolbar">
+                    <li class="nav-item hidden-float hidden-md-up" id="toggleMenubar">
+                        <a class="nav-link" data-toggle="menubar" href="#" role="button">
+                            <i class="icon hamburger hamburger-arrow-left">
+                                <span class="sr-only">Toggle menubar</span>
+                                <span class="hamburger-bar"></span>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Navbar Toolbar -->
+                <!-- Navbar Toolbar Right -->
+                <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                    <li class="nav-item dropdown nav-account">
+                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
+                            <small style="font-weight:500;text-transform:uppercase;">Dương Văn Chiến</small>
+                            <span class="avatar avatar-online" style="width:30px;height:30px;overflow:hidden;">
+                                    <img id="avatar-img" th:src="@{/Content/Images/avatar.jpg}">
+                            </span>
+                            <span></span>
+                        </a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="/Account/Info" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Thông tin tài khoản</a>                            
+                            <div class="dropdown-divider" role="presentation"></div>
+<form action="/Account/LogOut" method="post"><input name="__RequestVerificationToken" type="hidden" value="TSRVefMSEkVz_C0mUxrDbls0RdPRVIYYfNE7jYQrDJ2OsZqpNaGe0sE4jQOqD7lFuMOhxqkD95vi_1tfircZCz8yTlg1">                                <button class="dropdown-item" type="submit" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Đăng xuất</button>
+</form>                        </div>
+                    </li>                    
+                </ul>
+                <!-- End Navbar Toolbar Right -->
+            </div>            
+            <!-- End Navbar Collapse -->
+            <!-- Site Navbar Seach -->
+            <!-- End Site Navbar Seach -->
+        </div>
+    </nav>
+
+    <div class="site-menubar mm-menu mm-hasnavbar-bottom-1"><div class="mm-navbar mm-navbar-bottom mm-navbar-bottom-1 mm-navbar-size-1"><div class="site-menubar-footer">
+              <a href="/Account/Info" class="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Cấu hình tài khoản">
+                <span class="icon wb-settings" aria-hidden="true"></span>
+              </a>
+              <a href="/Home/Dashboard" data-placement="top" data-toggle="tooltip" data-original-title="Dashboard">
+                <span class="icon md-view-dashboard" aria-hidden="true"></span>
+              </a>
+              <a href="/account/logout" data-placement="top" data-toggle="tooltip" data-original-title="Đăng xuất">
+                <span class="icon wb-power" aria-hidden="true"></span>
+              </a>
+            </div></div><div class="mm-panels scrollable scrollable-inverse scrollable-vertical is-disabled"><div class="mm-panel mm-hasnavbar mm-opened mm-current scrollable-container" id="mm-0" style=""><div class="mm-navbar scrollable-content" style=""><a class="mm-title">Menu</a></div><ul class="site-menu mm-listview scrollable-content" style="">
+                <li class="site-menu-item nav-account">
+                    <a href="/Home/Dashboard">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Dashboard</span>
+                    </a>
+                </li>
+            <li class="site-menu-item nav-signature has-sub">
+                <a class="mm-next" href="#mm-1" data-target="#mm-1"></a><a href="javascript:void(0)">
+                    <i class="site-menu-icon md-border-color" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch Ký số</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                
+            </li>
+            
+            
+                <li class="site-menu-item nav-group">
+                    <a href="/Account/Group">
+                        <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                        <span class="site-menu-title">Quản lý tài khoản</span>
+                    </a>
+                </li>
+
+            <li class="site-menu-item nav-group">
+                <a href="/Transactions/WaitingTran">
+                    <i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
+                    <span class="site-menu-title">Giao dịch chờ xác nhận</span>
+                </a>
+            </li>
+                <li class="site-menu-item nav-group">
+                    <a href="/Transactions/GroupIndex">
+                        <i class="site-menu-icon md-time" aria-hidden="true"></i>
+                        <span class="site-menu-title">Lịch sử giao dịch</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item nav-group">
+                    <a href="/SystemConfig/Index">
+                        <i class="site-menu-icon md-settings" aria-hidden="true"></i>
+                        <span class="site-menu-title"> Cài đặt</span>
+                    </a>
+                </li>
+
+        </ul></div><div class="mm-panel mm-hasnavbar mm-hidden scrollable-container" id="mm-1" style=""><div class="mm-navbar scrollable-content" style=""><a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a><a class="mm-title" href="#mm-0">
+                    
+                    Giao dịch Ký số
+                    
+                </a></div><ul class="site-menu-sub mm-listview scrollable-content" style="">
+                    <li class="site-menu-item nav-sign">
+                        <a class="animsition-link" href="/Signature/Index">
+                            <span class="site-menu-title">Ký số</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Verify/Index">
+                            <span class="site-menu-title">Kiểm tra chữ ký</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item nav-verify">
+                        <a class="animsition-link" href="/Signature/InitByPartner">
+                            <span class="site-menu-title">Trình ký</span>
+                        </a>
+                    </li>
+                </ul></div><div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide is-disabled" draggable="false"><div class="scrollable-bar-handle"></div></div></div></div>            
+    <!-- Modal -->
+    <div class="modal fade modal-primary" id="popupMain" aria-hidden="true" aria-labelledby="popupMain" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-simple">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <div class="panel-heading" style="padding: 0px;">
+                            <h3 class="panel-title text-center"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-outline float-center" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+    <!-- Page -->
+    
+
+
+
+<div class="page page-user app-work app-mailbox">
+    <div class="page-header">
+        <h1 class="page-title">Lịch sử giao dịch</h1>
+    </div>
+
+    <div class="page-content">
+        <div class="panel">
+            <div id="mem-trans-loader" class="loader-container customer-loade">
+                <div class="loader vertical-align-middle loader-bounce"></div>
+                <span class="loader-message">Đang tải dữ liệu...</span>
+            </div>
+            <div class="panel-heading">
+                <div class="row" style="padding: 0; margin: 0">
+                    <div class="panel-title col-md-3" style="padding: 11px 0px;">
+                        <select id="member-select" class="form-control select2-hidden-accessible" name="Member" data-select2-id="member-select" tabindex="-1" aria-hidden="true">
+                            <option value="" data-select2-id="2">Tất cả thành viên</option>
+                                    <option value="034bae5c-bb16-4f93-9fff-fa1b93b3ef0a">Ngo Quang Dat</option>
+                                    <option value="184720ce-025c-4a16-9bcd-4a8f49676061">Nguyen Thi Minh Cham</option>
+                                    <option value="23ce182e-8951-46c8-bf06-62ecfec328c1">Dương Văn Chiến</option>
+                                    <option value="425f2297-1cd2-4d27-8bd4-76a15f2e36ef">Bui Phuong Mai</option>
+                                    <option value="61cdfbd0-8fec-4a45-ae1f-4b43f8c0608b">Nguyen Thi Minh Phuong</option>
+                                    <option value="8222e223-4d25-49c0-8945-5e0386c2ebc8">nguyen van test1</option>
+                                    <option value="ddee1697-16e9-437f-8ed0-c87dd2c18f82">Nguyen Thi Sim</option>
+                                    <option value="e3aed170-a14a-437f-850c-bc5065efd0e7">Ngo Quang Dat</option>
+                                    <option value="f1e51682-0412-44fd-be66-e45636a13561">nguyen van test2</option>
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="1" style="width: 349.75px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-member-select-container"><span class="select2-selection__rendered" id="select2-member-select-container" role="textbox" aria-readonly="true" title="Tất cả thành viên">Tất cả thành viên</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                    </div>
+                    <div class="col-md-8 offset-1" style="padding: 11px 0px;">
+                        <div class="row">
+                            <div class="panel-title col-md-4" style="padding:0; margin: 0">
+                                <div style="padding:0; margin: 0; display: flex; flex-direction: row">
+                                    <label style="width: 80px;
+                                    padding-top: 9px;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        text-overflow: ellipsis;">Từ ngày :</label>
+                                    <input readonly="" id="startDate" name="startDate" type="text" value="29/06/2024" class="form-control" placeholder="dd/MM/yyyy" style="display: inline-block">
+                                </div>
+                            </div>
+                            <div class="panel-title col-md-4 ml-20" style="padding:0; margin: 0">
+                                <div style="padding:0; margin: 0; display: flex; flex-direction: row">
+                                    <label style="width: 90px;
+                                    padding-top: 9px;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        text-overflow: ellipsis;">Đến ngày : </label>
+                                    <input readonly="" id="endDate" name="endDate" type="text" value="29/07/2024" class="form-control" placeholder="dd/MM/yyyy" style="display: inline-block">
+                                </div>
+                            </div>
+                            <div class="col-md-2 ml-20" style="padding:0; margin: 0">
+                                <button class="btn btn-primary" onclick="filter()">Tìm kiếm</button>    
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                
+                <div class="panel-body">
+                    <table id="mailboxTable" class="table table-bordered" data-plugin="animateList" data-animate="fade" data-child="tr">
+                        <thead class="hidden-sm-down">
+                            <tr>
+                                <th class="cell-60 center-align">STT</th>
+                                <th class="cell-80 tran-file-type responsive-hide center-align">Loại tệp</th>
+                                <th class="cell-150 hidden-sm-down">Trạng thái giao dịch</th>
+                                <th class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">Người tạo giao dịch</th>
+                                <th>Tên tài liệu</th>
+                                <th class="hidden-md-down cell-130">Kích thước</th>
+                                <th class="cell-180 hidden-sm-down">Ngày giao dịch</th>
+                                <th class="cell-180 responsive-hide center-align">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mem-trans">
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">1</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chamntm@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:34:48</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=90453d6a-af01-4f38-81c6-3df464080e61" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">2</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">chamntm@uicvn.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chiendv@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:32:01</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=da155b2d-751f-40e4-b4c1-ba4d626f72b8" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">3</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chiendv@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:31:27</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=b69a5b5b-604f-4da4-9197-fecc0290b82a" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">4</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">chamntm@uicvn.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: wwtest92@gmail.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:26:58</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=d8deb2b1-7444-4a9b-bff0-568c59d29bde" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">5</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chiendv@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:26:12</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=df02b88d-d4e8-4934-b7c0-a9a03e573b2f" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">6</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chiendv@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:23:16</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=46dc68bf-eb05-4198-9eeb-bc4721c414af" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">7</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chamntm@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:22:43</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=924884df-04ec-4537-a61b-879428df3da2" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">8</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/docx.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">Request For Proposal.docx</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chamntm@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 167.4KB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:01:02</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=aa30177c-09f4-472d-84ec-b1c013d15a6f" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">9</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chamntm@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>15:00:30</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=09073107-6cd4-4b08-a8b6-a4f13b790de4" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr id="mid_1" data-url="panel.tpl" data-toggle="slidePanel">
+
+                                        <td style="text-align:center;">10</td>
+                                        <td class="cell-80 tran-file-type responsive-hide center-align">
+                                            <img style="width:25px;" class="img-fluid" th:src="@{/Content/Images/document/pdf.png}" alt="...">
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down">
+                                            <div class="identity">
+                                                <span class="bg-blue-600 badge badge-round badge-lg hidden-sm-down">Chờ xác nhận</span>
+                                            </div>
+                                        </td>
+                                        <td class="cell-180" style="overflow:hidden; text-overflow:ellipsis;">wwtest92@gmail.com</td>
+                                        <td>
+                                            <div class="content">
+                                                <div class="title"><a class="tran-more-info-btn" href="javascript:void(0)">BA-Overview-062022.pdf</a></div>
+                                                <span class="text-success">Đã chuyển tới đối tác: chamntm@uicvn.com </span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-md-down">
+                                            <div class="sub-title"> 1.8MB<span class="divider hidden-md-up">| </span></div>
+                                        </td>
+                                        <td class="cell-130 hidden-sm-down center">
+                                            <span>23/07/2024</span>&nbsp;<span>14:12:19</span>
+                                        </td>
+                                        <td class="cell-60 responsive-hide center-align">
+                                            <a href="/Transactions/Download?tranID=68cdc09d-fc23-46c2-a08b-db9799b9feb9" class="btn btn-online" data-toggle="tooltip" data-placement="top" data-original-title="Tải xuống tệp đã ký"><i class="icon wb-download" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                        </tbody>
+                    </table>
+                    <div class="span6">
+                        <div class="pagination" id="paging_info" style=" float: left; padding: 11px 0px; ">
+                            Tổng số: <span class="total"> 40 </span> kết quả
+                        </div>
+                    </div>
+                    <div id="Paging" class="paging text-center">
+
+                        <ul class="pagination pagination-no-border" style="float:right;">
+                                                                <li class="active page-item"><a class="page-link disabled" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+                                    <li class="page-item hidden-sm-down"><a class="page-link" href="javascript:void(0)" onclick="paging(2)">2</a></li>
+                                    <li class="page-item hidden-sm-down"><a class="page-link" href="javascript:void(0)" onclick="paging(3)">3</a></li>
+                                    <li class="page-item hidden-sm-down"><a class="page-link" href="javascript:void(0)" onclick="paging(4)">4</a></li>
+                                                            <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" onclick="paging(1 + 1)" aria-label="Next">
+                                        <i class="icon wb-chevron-right-mini" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-default hidden-sm-down" onclick="paging(4)" href="javascript:void(0)">Trang cuối</a>
+                                    <a class="btn btn-default hidden-md-up" onclick="paging(4)" href="javascript:void(0)"><i class="fa fa-angle-double-right"></i></a>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+<div class="modal fade " tabindex="-1" role="dialog" id="modalReport" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Xuất báo cáo giao dịch</h4>
+            </div>
+            <div class="modal-body">
+                <form id="fileupload" action="/transactions/report" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="GroupType">Từ ngày *</label>
+                            <div>
+                                <input id="fromDate" type="text" class="form-control" name="fromDate" placeholder="dd/MM/yyyy">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" id="btnGenKeypair" onclick="model.report()">
+                    <i class="icon md-download"></i>
+                    <span>Xuất báo cáo</span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <b>Đóng</b>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- End Page -->
+	<!-- Footer -->
+	<!-- Core  -->
+	<script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+	<script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+	<script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+	<script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+	<script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+	<script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+	<script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+	<script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+	<script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+	<script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+	<script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+	<script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+	<script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+	<script th:src="@{../Content/js/moment.js}"></script>
+
+    <script th:src="@{../Content/js/Component.js}"></script>
+	<script th:src="@{../Content/js/Plugin.js}"></script>
+	<script th:src="@{../Content/js/Base.js}"></script>
+	<script th:src="@{../Content/js/Config.js}"></script>
+
+    <script th:src="@{../Content/js/GridMenu.js}"></script>
+	<script th:src="@{../Content/js/Menubar.js}"></script>
+	<script th:src="@{../Content/js/PageAside.js}"></script>
+	<script th:src="@{../Content/js/Sidebar.js}"></script>
+	<script th:src="@{../Content/js/matchHeight.js}"></script>
+
+    <script th:src="@{../Content/js/colors.js}"></script>
+
+	<script th:src="@{../Content/js/Site.js}"></script>
+
+	<script sth:src="@{../Content/js/toastr.js}"></script>
+
+    
+    <script sth:src="@{../assets/Vendor/dropify/dropify.js}"></script>
+    <script sth:src="@{../assets/js/dropify.js}"></script>
+    <script sth:src="@{../Scripts/bootstrap-paginator.min.js}"></script>
+    <script sth:src="@{../Scripts/notify/pnotify.custom.min.js}"></script>
+    <script sth:src="@{../Scripts/Coviet.common.js}"></script>
+    <script sth:src="@{../Scripts/handlebars/handlebars-v4.0.5.js}"></script>
+    <script sth:src="@{../Scripts/handlebars/regist.js}"></script>
+    <script sth:src="@{../Scripts/engine/data-engine.js}"></script>
+    <script sth:src="@{../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+    <script sth:src="@{../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.vi.min.js}"></script>
+    <script sth:src="@{../assets/vendor/formvalidation/formValidation.min.js}"></script>
+    <script sth:src="@{../assets/vendor/formvalidation/framework/bootstrap4.min.js}"></script>
+    <script sth:src="@{../assets/vendor/formvalidation/language/vi_VN.js}"></script>
+    <script sth:src="@{../assets/vendor/bootstrap3-editable/js/bootstrap-editable.js}"></script>
+    <script sth:src="@{../assets/vendor/select2/select2.full.min.js}"></script>
+    <script sth:src="@{../assets/js/Plugin/select2.js}"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('.nav-his').addClass('active open');
+            $('.nav-his-group').addClass('active open');
+            
+            $('#fromDate').datepicker({
+                useCurrent: false,
+                format: 'dd/mm/yyyy',
+                language: 'vi'
+            });
+            
+            $('#startDate').datepicker({
+                useCurrent: false,
+                format: 'dd/mm/yyyy',
+                language: 'vi',
+                maxDate: new Date()
+            });
+            $('#endDate').datepicker({
+                useCurrent: false,
+                format: 'dd/mm/yyyy',
+                language: 'vi',
+                maxDate: new Date(),
+            });
+            //$("#member-select").select2();
+
+            function customMatcher(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
+
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
+
+                // Trim the search term and match it with the data's text
+                if (data.text.toLowerCase().indexOf(params.term.trim().toLowerCase()) > -1) {
+                    return data;
+                }
+
+                // Return null if the term does not match
+                return null;
+            }
+
+            $("#member-select").select2({
+                matcher: customMatcher
+            });
+            // Limit input to 255 characters
+            $("#member-select").on('select2:open', function() {
+                let searchField = $(".select2-search__field");
+
+                searchField.on('input', function() {
+                    if (searchField.val().length > 255) {
+                        searchField.val(searchField.val().substr(0, 255));
+                    }
+                });
+            });
+
+            let today = new Date();
+            let priorDate = new Date();
+            priorDate.setDate(today.getDate() - 30);
+
+            const queryString = window.location.search;
+            
+            if (queryString == null || queryString.length === 0) {
+                $('#endDate').datepicker('setDate', today);
+                $('#startDate').datepicker('setDate', priorDate);
+            }
+
+        });
+        function filter() {
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            var accountID = $("#member-select").val();
+            var filter = [];
+            var filterString = "";
+            if (startDate != "") {
+                filter.push("startTime=" + startDate);
+            }
+            if (endDate != "") {
+                filter.push("endTime=" + endDate);
+            }
+            if (accountID != "") {
+                filter.push("accountID=" + accountID);
+            }
+            if (filter.length > 0) {
+                filterString = "?" + filter.join("&");
+            }
+            window.location.href = "/Transactions/GroupIndex/" + filterString;
+        }
+        function paging(page) {
+            var currentPage = 1;
+            var url = window.location.href;
+            if (url.indexOf("page=" + currentPage) > 0) {
+                url = url.replace("page=" + currentPage, "page=" + page);
+            } else {
+                if (url.indexOf("?") > 0) {
+                    url = url + "&page=" + page;
+                } else {
+                    url = url + "?page=" + page;
+                }                
+            }
+            window.location.href = url;
+        }
+</script>
+
+    
+    <script>
+        (function (global, factory) {
+            if (typeof define === "function" && define.amd) {
+                define('/pages/faq', ['jquery', 'Site'], factory);
+            } else if (typeof exports !== "undefined") {
+                factory(require('jquery'), require('Site'));
+            } else {
+                var mod = {
+                    exports: {}
+                };
+                factory(global.jQuery, global.Site);
+                global.pagesFaq = mod.exports;
+            }
+        })(this, function (_jquery, _Site) {
+            'use strict';
+
+            var _jquery2 = babelHelpers.interopRequireDefault(_jquery);
+
+            (0, _jquery2.default)(document).ready(function () {
+                (0, _Site.run)();
+
+                if ((0, _jquery2.default)('.faq-list').length) {
+                    (0, _jquery2.default)('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        (0, _jquery2.default)(e.target).addClass('active').siblings().removeClass('active');
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function showMessage(mesg, type) {
+            toastr.options.closeButton = true;
+            toastr.options.timeOut = 10000;
+            toastr.options.extendedTimeOut = 100;
+            toastr.options.progressBar = true;
+            switch (type) {
+                case 'info':
+                    toastr.info(mesg, 'THÔNG BÁO');
+                    break;
+                case 'error':
+                    toastr.error(mesg, 'LỖI');
+                    break;
+                case 'warning':
+                    toastr.warning(mesg, 'CẢNH BÁO');
+
+                    break;
+                default:
+
+            }
+        }
+        $(document).ready(function () {
+            //loadProfileImage();
+            var mesgVal = $('#mesg_value').val();
+            var mesgType = $('#mesg_type').val();
+            if (mesgVal != '') {
+                showMessage(mesgVal, mesgType);
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message=") - 1);
+                window.history.pushState({}, document.title, url);
+
+                if (mesgType.startsWith("modal")) {
+                    showModalMain('');
+                    $("#popupMain").modal({ backdrop: 'static', keyboard: false });
+                }
+            }
+
+            if (mesgType.startsWith('popup')) {
+                $('#' + mesgType).modal('show');
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message") - 1);
+                window.history.pushState({}, document.title, url);
+            }
+
+        });
+        function showModalMain(msgType) {
+            var type = "";
+            if (msgType.endsWith("warning")) { type = "warning"; }
+            if (msgType.endsWith("error")) { type = "error"; }
+            if (msgType.endsWith("success")) { type = "success"; }
+            $("#popupMain .modal-header").css("background-image", "url('/Content/Images/icons/" + type + ".png')");
+        }        
+    </script>
+
+
+
+<div id="aebafhjacacefagdbbfebjjcjbdibfeb" style="color-scheme: initial; forced-color-adjust: initial; mask: initial; math-depth: initial; position: relative; position-anchor: initial; appearance: initial; color: initial; font: initial; font-palette: initial; font-synthesis: initial; inset-area: initial; text-orientation: initial; text-rendering: initial; text-spacing-trim: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; anchor-name: initial; animation-composition: initial; animation: initial; app-region: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; field-sizing: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask-type: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position-try: initial; position-visibility: initial; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; white-space: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-class: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"></div></body></html>

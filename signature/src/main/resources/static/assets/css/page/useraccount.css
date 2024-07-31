@@ -1,0 +1,44 @@
+﻿.table {
+}
+
+.group-sumary-detail {
+    padding-left: 30px;
+}
+
+.page-profile .card-block {
+    padding-bottom: 0px !important;
+}
+
+.loader-container {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 20px);
+    z-index: 9;
+    background: rgba(245,244,245,0.75);
+    display: flex;
+    align-items: center;
+    top: -22px;
+    display: none;
+}
+
+.loader-message {
+    position: absolute;
+    top: calc(50% + 35px);
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.main-panel {
+    min-height: 75vh;
+}
+
+.log-work-table td {
+    padding: 0.2rem;
+    font-family: Courier New, Courier, monospace;
+}
+
+#nguoi_dung td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
