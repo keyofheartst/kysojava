@@ -1,0 +1,12 @@
+﻿
+@media (max-width: 768px) {
+    .panel {
+        width: 80%;
+    }
+}
+
+@media (max-width: 479px) {
+    .panel {
+        width: 100%;
+    }
+}

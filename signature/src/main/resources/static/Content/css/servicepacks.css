@@ -1,0 +1,22 @@
+﻿.pricing-list .pricing-price{
+    padding-top: 0px;
+}
+.pricing-amount{
+    font-size: 3rem;
+}
+.pricing-period{
+    font-size: 1.5rem;
+}
+
+.page{
+    background: #fff;
+}
+.panel{
+    background: #fff;
+    box-shadow: none;
+}
+.ribbon-badge.ribbon-reverse{
+    right: 15px;
+    left: auto;
+    top: 0px;
+}

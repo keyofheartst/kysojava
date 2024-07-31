@@ -1,0 +1,19 @@
+﻿.dropify-wrapper-multiple {
+    border: 2px dashed #589ffc;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.8);
+}
+
+#divFiles, #tblFiles {
+    width: 100%;
+}
+
+#divFiles {
+    max-height: 112px;
+    overflow-y: auto;
+}
+
+#tblFiles > tr > td {
+    padding: 0px 10px;
+    border-bottom: 1px solid #589ffc;
+}

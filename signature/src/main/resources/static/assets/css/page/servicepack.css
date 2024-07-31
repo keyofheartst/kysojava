@@ -1,0 +1,20 @@
+﻿
+.loader-container {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 20px);
+    z-index: 9;
+    background: rgba(245,244,245,0.75);
+    display: flex;
+    align-items: center;
+    top: -22px;
+    display: none;
+}
+
+.loader-message {
+    position: absolute;
+    top: calc(50% + 35px);
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="no-js js-menubar" lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="bootstrap admin template">
+    <meta name="author" content="">
+
+    <title>Quên mật khẩu?</title>
+
+	<link rel="shortcut icon" th:href="@{../Content/Images/Shortcut.ico}">
+	
+	<!-- Stylesheets -->
+	<link th:href="@{../Content/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/bootstrap-extend.min.css}"rel="stylesheet">
+	<link th:href="@{../Content/css/site.min.css}" rel="stylesheet">
+	
+	<!-- Plugins -->
+	<link th:href="@{../Content/Vendor/animsition/animsition.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/asscrollable/asScrollable.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/switchery/switchery.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/intro-js/introjs.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/slidepanel/slidePanel.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/jquery-mmenu/jquery-mmenu.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist/chartist.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css}" rel="stylesheet">
+	<link th:href="@{../Content/Vendor/toastr/toastr.css}" rel="stylesheet">
+	<link th:href="@{../Content/css/toastr.css}" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link th:href="@{../fonts/7-stroke/7-stroke.css}" rel="stylesheet" />
+    <link th:href="@{../fonts/font-awesome/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{../fonts/web-icons/web-icons.min.css}" rel="stylesheet" />
+    <link th:href="@{../fonts/brand-icons/brand-icons.min.css}" rel="stylesheet" />    
+
+    <!--[if lt IE 9]>
+    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+    <script src="../../global/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+    <!-- Scripts -->
+    <script th:src="@{../Content/Vendor/jquery/jquery.js}"></script>
+    <script th:src="@{../Content/Vendor/breakpoints/breakpoints.js}"></script>
+    <script>
+        Breakpoints();
+    </script>
+    <style>
+        .css-menubar .page, .css-menubar .site-footer{
+            margin-left: 0px !important;
+        }
+    </style>
+</head>
+<body class="animsition site-navbar-small dashboard">
+    <input id="mesg_type" type="hidden" />
+    <input id="mesg_value" type="hidden" />
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse"
+                    data-toggle="collapse">
+                <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="">
+                <a href="/">
+                    <img style="margin-left: -8px" class="navbar-brand-logo" src="/Content/Images/Shortcut.ico" title="UIC-Kyso" />
+                    <span class="navbar-brand-text hidden-xs-down"> UIC-Kyso</span>
+                </a>
+            </div>
+            <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
+                    data-toggle="collapse">
+                <span class="sr-only">Toggle Search</span>
+                <i class="icon wb-search" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">                
+                <!-- Navbar Toolbar Right -->
+                <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">                                                            
+
+                    <li class="nav-item">
+                        <a class="nav-link hidden-sm-down" href="/Account/Login?returnUrl=" role="button">
+                            <span class="">
+                                ĐĂNG NHẬP
+                            </span>
+                        </a>
+                        <a class="nav-link hidden-md-up" href="/Account/Login?returnUrl=" role="button" data-toggle="tooltip" data-placement="bottom" title="Đăng nhập"><i class="fa fa-sign-in" title="Đăng nhập"></i></a>
+                    </li>
+                </ul>
+                <!-- End Navbar Toolbar Right -->
+            </div>
+            <!-- End Navbar Collapse -->
+            <!-- Site Navbar Seach -->
+            <div class="collapse navbar-search-overlap" id="site-navbar-search">
+                <form role="search">
+                    <div class="form-group">
+                        <div class="input-search">
+                            <i class="input-search-icon wb-search" aria-hidden="true"></i>
+                            <input type="text" class="form-control" name="site-search" placeholder="Search...">
+                            <button type="button" class="input-search-close icon wb-close" data-target="#site-navbar-search"
+                                    data-toggle="collapse" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- End Site Navbar Seach -->
+        </div>
+    </nav>    
+    <!-- Page -->
+
+    
+
+<style>
+    .panel {
+        width: 50%;
+        margin: 0px auto;
+    }
+</style>
+<link th:href="@{../Content/Vendor/formvalidation/formValidation.css}" rel="stylesheet" />
+<link th:href="@{../Content/css/certificates.css}" rel="stylesheet" />
+<link th:href="@{../Content/css/forgot-pass.css}" rel="stylesheet" />
+<!-- Page -->
+<div class="page page-user">
+    <div class="page-header">
+        <h1 class="page-title">Quên mật khẩu</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active">Quên mật khẩu</li>
+        </ol>
+    </div>
+
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-body">
+<form action="/Account/ForgotPassword" class="form-horizontal" id="forgot-pass-form" method="post" role="form"><input name="__RequestVerificationToken" type="hidden" value="HMjDmupJ4qBroOI7Jpf-rs7x0SIv-cAI8W81rVIEKKBc5f8vziyRAvmL8p57fP2N_-UEYuDx5B4pwfUMC-eENl-hF0g1" />                    <h4>Nhập địa chỉ email để tiếp tục.</h4>
+                    <hr />
+<div class="validation-summary-valid text-danger" data-valmsg-summary="true"><ul><li style="display:none"></li>
+</ul></div>                    <div class="form-group">
+                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Địa chỉ email...">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <button id="forgot-pass-submit" type="submit" class="btn btn-primary btn-animate btn-animate-side" disabled><span><i class="icon fa fa-send-o" aria-hidden="true"></i>&nbsp;&nbsp;Khôi phục lại</span></button>
+                    </div>
+</form>            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- End Page -->
+    <!-- Footer -->
+    <footer class="site-footer"></footer>
+    <!-- Core  -->
+    <script th:src="@{../Content/Vendor/babel-external-helpers/babel-external-helpers.js}"></script>
+    <script th:src="@{../Content/Vendor/popper-js/umd/popper.min.js}"></script>
+    <script th:src="@{../Content/Vendor/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{../Content/Vendor/animsition/animsition.js}"></script>
+    <script th:src="@{../Content/Vendor/mousewheel/jquery.mousewheel.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollbar/jquery-asScrollbar.js}"></script>
+    <script th:src="@{../Content/Vendor/asscrollable/jquery-asScrollable.js}"></script>
+
+    <script th:src="@{../Content/Vendor/jquery-mmenu/jquery.mmenu.min.all.js}"></script>
+    <script th:src="@{../Content/Vendor/switchery/switchery.js}"></script>
+    <script th:src="@{../Content/Vendor/intro-js/intro.js}"></script>
+    <script th:src="@{../Content/Vendor/screenfull/screenfull.js}"></script>
+    <script th:src="@{../Content/Vendor/slidepanel/jquery-slidePanel.js}"></script>
+    <script th:src="@{../Content/Vendor/matchheight/jquery.matchHeight-min.js}"></script>
+    <script th:src="@{../Content/Vendor/toastr/toastr.min.js}"></script>
+
+    <script th:src="@{../Content/js/Component.js}"></script>
+    <script th:src="@{../Content/js/Plugin.js}"></script>
+    <script th:src="@{../Content/js/Base.js}"></script>
+    <script th:src="@{../Content/js/Config.js}"></script>
+
+    <script th:src="@{../Content/js/GridMenu.js}"></script>
+    <script th:src="@{../Content/js/Menubar.js}"></script>
+    <script th:src="@{../Content/js/PageAside.js}"></script>
+    <script th:src="@{../Content/js/Sidebar.js}"></script>
+    <script th:src="@{../Content/js/matchHeight.js}"></script>
+    <script th:src="@{../Content/js/toastr.js}"></script>
+
+    <script th:src="@{../Content/js/colors.js}"></script>
+
+    <script th:src="@{../Content/js/Site.js}"></script>
+    <script th:src="@{../Content/js/material.js}"></script>
+
+    <script>
+        (function (global, factory) {
+            if (typeof define === "function" && define.amd) {
+                define('/pages/faq', ['jquery', 'Site'], factory);
+            } else if (typeof exports !== "undefined") {
+                factory(require('jquery'), require('Site'));
+            } else {
+                var mod = {
+                    exports: {}
+                };
+                factory(global.jQuery, global.Site);
+                global.pagesFaq = mod.exports;
+            }
+        })(this, function (_jquery, _Site) {
+            'use strict';
+
+            var _jquery2 = babelHelpers.interopRequireDefault(_jquery);
+
+            (0, _jquery2.default)(document).ready(function () {
+                (0, _Site.run)();
+
+                if ((0, _jquery2.default)('.faq-list').length) {
+                    (0, _jquery2.default)('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        (0, _jquery2.default)(e.target).addClass('active').siblings().removeClass('active');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function showMessage(mesg, type) {
+            toastr.options.closeButton = true;
+            toastr.options.timeOut = 10000;
+            toastr.options.extendedTimeOut = 100;
+            toastr.options.progressBar = true;
+            switch (type) {
+                case 'info':
+                    toastr.info(mesg, 'THÔNG BÁO');
+                    break;
+                case 'error':
+                    toastr.error(mesg, 'LỖI');
+                    break;
+                case 'warning':
+                    toastr.warning(mesg, 'CẢNH BÁO');
+                    break;
+                default:
+
+            }
+        }
+        $(document).ready(function () {
+            var mesgVal = $('#mesg_value').val();
+            var mesgType = $('#mesg_type').val();
+            if (mesgVal != '') {
+                showMessage(mesgVal, mesgType);
+                var url = window.location.href;
+                url = url.substring(0, url.indexOf("message=") - 1);
+                window.history.pushState({}, document.title, url);
+            }
+        });
+    </script>
+    
+    <script src="/Content/Vendor/formvalidation/formValidation.js"></script>
+    <script src="/Content/Vendor/formvalidation/framework/bootstrap4.js"></script>
+    <script src="/Content/Vendor/formvalidation/language/vi_VN.js"></script>
+    <script src="/Content/js/forgot-password.js"></script>    
+
+</body>
+</html>

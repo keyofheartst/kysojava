@@ -1,0 +1,46 @@
+.toast {
+    width: 320px !important;
+    padding: 20px 20px !important;
+    padding-left: 70px !important;
+    border-radius: 1px !important;
+    border-radius: 0px !important;
+}
+
+    .toast::before {
+        left: 20px !important;
+    }
+
+.toast-close-button {
+    top: -0.6em !important;
+}
+
+.toast-example {
+    position: static;
+    margin: 10px 0 30px;
+}
+
+    .toast-example.padding-0 {
+        margin-bottom: 30px;
+    }
+
+    .toast-example > div {
+        width: auto;
+        max-width: 300px;
+        margin-bottom: 0;
+    }
+
+.position-example {
+    position: relative;
+    height: 330px;
+    margin-bottom: 20px;
+}
+
+    .position-example > div {
+        position: absolute;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .position-example > .btn-block + .btn-block {
+        margin-top: 215px;
+    }

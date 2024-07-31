@@ -1,0 +1,377 @@
+﻿
+.panel-heading {
+    padding: 20px;
+}
+#signature-page .panel {
+    padding-top: 50px;
+    min-height: calc(100vh - 20rem);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.panel-bordered > .panel-heading {
+    text-align: center;
+}
+
+#pdf-options-btn {
+    display: none;
+}
+.pdf-option {
+    display: none;
+}
+.file-input-container{
+    padding-top: 25px;
+}
+.dropify-errors-container {
+    margin-top: 15px;
+    background: rgba(255, 0,0, 0.3);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+    .dropify-errors-container ul li {
+        padding: 10px 0px 0px 0px
+    }
+        .dropify-errors-container ul li:last-child{
+            padding-bottom: 10px;
+            padding-top: 5px;
+        }
+        p.dropify-error {
+            display: none;
+        }
+.page-aside {
+    min-width: 360px;
+    z-index: 9998;
+}
+.site-navbar.navbar.navbar-default.navbar-fixed-top.navbar-mega {
+    z-index: 999999;
+}
+.page-aside-right .page-aside + .page-main {
+    margin-right: 360px;
+}
+.page-aside-fixed.page-aside-left .site-footer {
+    margin-left: 360px;
+}
+
+.page-aside-fixed.page-aside-right .site-footer {
+    margin-right: 360px;
+}
+
+@media (max-width:1199px) {
+    .page-aside {
+        width: 320px;
+    }
+
+    .page-aside-right .page-aside + .page-main {
+        margin-right: 320px;
+    }
+
+    .page-aside-fixed.page-aside-left .site-footer {
+        margin-left: 320px;
+    }
+
+    .page-aside-fixed.page-aside-right .site-footer {
+        margin-right: 320px;
+    }
+}
+
+@media (max-width:767px) {
+    .page-aside {
+        width: 360px;
+    }
+    .page-aside-right .page-aside {
+        right: -360px !important;
+    }
+        .page-aside-right .page-aside + .page-main {
+            margin-right: 0px;
+        }
+}
+.page-aside .list-group-item {
+    white-space: unset;
+    padding: 8px 30px;
+}
+    .page-aside .list-group-item .progress {
+        width: calc(100% - 30px);
+        float: right;
+        margin-top: 5px;
+        margin-bottom: 0px;
+        height: 13px;
+        border-radius: 1px;
+        background-color: #d6dbe0;
+    }
+        .page-aside .list-group-item .progress .progress-bar {
+            background-color: #76838f;
+        }
+        .page-aside-section:after {
+            border-bottom: 0.1rem dashed #a8b0b3;
+        }
+.page-aside .list-group .set-default {
+    border-radius: 2px;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.page-aside .list-group .set-default-container{
+    display: none;
+}
+.wizard-pane .list-group-item{
+    background: none;
+}
+.checkbox-custom label {
+    color: #3e8ef7;
+    font-weight: 500;
+}
+
+.wizard-buttons {
+    text-align: center;
+    padding-top: 25px;
+    padding-left: 1.0715rem;
+    padding-right: 1.0715rem;
+}
+@media (min-width:767px) {
+    .wizard-buttons > a {
+        border-radius: 500px;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-bottom: 4px;
+        padding-top: 6px;
+        min-width: 10em;
+    }
+}
+@media(max-width: 1368px){
+    .wizard-buttons > a:first-child{
+        float: left;
+    }
+    .wizard-buttons > a.btn-primary, .wizard-buttons > a.btn-success {
+        float: right;
+    }
+}
+
+.wizard-buttons > a{
+    min-width: 7em;
+    font-weight: 500;
+}
+
+.wizard-buttons > a:first-child {
+    margin-right: 25px;
+}
+
+    .dropify-wrapper {
+        border-radius: 3px;
+    }
+
+    .page-aside-section .item-actions {
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 30px;
+        font-weight: 500;
+        padding: 4px 12px;
+        display: none;
+    }
+
+    .loader-container {
+        position: absolute;
+        width: 100%;
+        height: calc(100% + 20px);
+        z-index: 9;
+        background: rgba(245,244,245,0.75);
+        display: flex;
+        align-items: center;
+        top: -22px;
+        display: none;
+    }
+
+    .loader-message {
+        position: absolute;
+        top: calc(50% + 35px);
+        width: 100%;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .sign-tbl td {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .sign-tbl tr:first-child td {
+        border: none;
+    }
+
+    .error-comp h3 {
+        color: #ff4c52;
+    }
+
+
+    .modal-sidebar {
+        width: 360px !important;
+    }
+
+
+    #verifyResult .modal-sidebar {
+        min-width: 30% !important;
+    }
+
+    #verifyResult th {
+        padding-left: 25px;
+    }
+
+    .modal-sidebar .modal-content {
+        height: 100%;
+    }
+
+        .modal-sidebar .modal-content .modal-body {
+            height: 100%;
+            padding: 0px;
+        }
+
+    .modal-sidebar button.close {
+        right: 40px;
+    }
+
+    .modal-body .page-aside-inner {
+        height: 100%;
+        overflow: hidden;
+    }
+
+        .modal-body .page-aside-inner .app-location-list {
+            height: calc(100% - 72px);
+        }
+
+    .modal-body .list-group {
+        padding-right: 15px;
+        margin: 0;
+    }
+
+        .modal-body .list-group .list-group-item, .list-group .list-group-item:hover {
+            background-color: transparent;
+        }
+
+        .modal-body .list-group .friend-info {
+            padding: 0px !important;
+            padding-left: 15px !important;
+        }
+
+        .modal-body .list-group .card {
+            margin-bottom: 15px;
+        }
+
+    .modal-body .page-aside {
+        background-color: #f3f7f9;
+    }
+
+    .modal-body .list-group .card-block {
+        cursor: pointer;
+    }
+
+    .page-aside-switch {
+        background-color: #bdb3b3;
+        box-shadow: 0 4px 5px rgba(0,0,0,.08);
+    }
+
+    .my-page-aside-switch {
+        position: absolute;
+        right: 0px !important;
+        z-index: 9;
+        top: 15px;
+    }
+#step-4 a{
+    overflow: hidden;
+}
+#signature-wizard::before {
+    background-image: url("/Content/Images/background/signature-background.png");
+    background-repeat: no-repeat;
+    background-position: bottom 50px right 50px;
+    background-size: 40%;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+@media(max-width: 768px){
+    #signature-wizard::before {
+        background-size: 80%;
+        background-position: bottom 10px right 10px;
+    }
+}
+
+@media(min-width: 768px){
+    .my-page-aside-switch{
+        display: none;
+    }
+}
+
+.my-pearl {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+    .my-pearl .pearl-icon {
+        color: #3e8ef7;
+        background-color: #fff;
+        border-color: #3e8ef7;
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3);
+    }
+
+    .my-pearl::after {
+        position: absolute;
+        top: 18px;
+        z-index: 0;
+        width: 100%;
+        left: 0px;
+        height: 4px;
+        content: "";
+        background-color: #3e8ef7;
+    }
+
+    .my-pearl.error .pearl-icon {
+        color: #ff4c52;
+        background-color: #fff;
+        border-color: #ff4c52;
+    }
+
+.sign-complete {
+    text-align: center;
+}
+
+.sign-complete-text {
+    margin-top: 25px;
+}
+
+.my-pearl-icon {
+    font-size: 36px;
+    width: 80px;
+    height: 80px;
+    line-height: 76px;
+    background: none;
+    color: #4caf50;
+    background-color: #fff;
+    border-color: #4caf50;
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.sign-complete-act {
+    padding-top: 15px;
+}
+
+.sign-tool-change {
+    color: #fff !important;
+    border-radius: 500px;
+    padding: 2px 15px;
+    margin-left: 15px;
+}
+
+.dropify-wrapper {
+    background-color: none !important;
+}

@@ -1,0 +1,31 @@
+﻿.btn .icon {
+    font-size: 1.3em;
+}
+.tran-file-type{
+    width: 30px;
+}
+.cell-10{
+    width: 10px;
+}
+.example-loading{
+    height: 100% !important;
+    display: none;
+}
+.no-data{
+    width: 100%;
+    padding-top: 30px !important;
+    text-align: center;
+    color: #ff4c52;
+}
+td.tran-type img{
+    border-radius: 500px;
+    background: blue;
+}
+span.tran-type-lbl {
+    border-radius: 500px;
+    font-weight: normal;
+    font-size: 11px;
+    padding: 2px 9px;
+    padding-bottom: 1px;
+    color: #fff;
+}

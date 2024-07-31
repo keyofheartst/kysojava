@@ -1,0 +1,59 @@
+<html>
+<link href="jquery-ui.css" rel="stylesheet" />
+<link href="vnpt-pdf.min.css" rel="stylesheet" />
+
+<body>
+<div class="pdf-input-group">
+    <span class="pdf-input-group-btn">
+        <span class="pdf-btn pdf-btn-file" id="input-file">
+            Browse <input id="select-file" name="SetupFile" type="file"
+                          accept="application/pdf" required>
+        </span>
+    </span> <input id="fileName" type="text" class="pdf-file-name"
+                   readonly="readonly">
+</div>
+
+<button id="advancedSign" class="pdf-btn">Ký nâng cao</button>
+
+
+
+<script src="jquery/jquery.min.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="jquery-touch.min.js"></script>
+<script src="pdf.js"></script>
+<script src="pdf.worker.js"></script>
+<script src="VnptPdf.js"></script>
+<script>
+
+    $(document).ready(function () {
+        VnptPdf.initPlugin();
+        // 1. Khởi tạo plugin
+        $('#advancedSign').click(function () {
+            VnptPdf.start();
+        });
+    });
+
+    // Xử lý chọn tệp
+    $(document).on(
+        'change',
+        '#input-file :file',
+        function (event) {
+            var input = $(this), numFiles = input.get(0).files ? input
+                .get(0).files.length : 1, label = input.val().replace(
+                    /\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+            var file = event.target.files[0];
+
+            // 2. Khởi tạo dữ liệu cho plugin, với hàm callback
+            VnptPdf.initData(file, signSignServerAdvanced);
+        });
+
+    // 3. Hàm callback sau khi custom chữ ký (vị trí, hình ảnh, bổ sung comments,...)
+    function signSignServerAdvanced() {
+        var option = VnptPdf.getPdfOptions();
+        console.log(option);
+
+    }
+</script>
+</body>
+</html>
